@@ -1,0 +1,3198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Jurídico Completo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        /* === ESTILOS GLOBAIS === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a, #2F5496);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            .propaganda-area {
+                display: none;
+            }
+        }
+        
+        .container { max-width: 100%; }
+        
+        /* === COMPONENTES DE LAYOUT === */
+        .header {
+            text-align: center;
+            padding: 25px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .header h1, .header p { color: white; }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border: 1px solid #eaeaea;
+        }
+        
+        .data-item {
+            background: #f8fafc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #2F5496;
+            transition: transform 0.2s;
+        }
+        
+        .data-item:hover { transform: translateX(5px); }
+        
+        .search-box {
+            background: #e3f2fd;
+            padding: 18px;
+            border-radius: 10px;
+            margin: 12px 0;
+        }
+        
+        /* === FORMULÁRIOS EM DUAS COLUNAS === */
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-left {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .form-right {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .cadastro-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2F5496;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .cadastro-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .cadastro-acoes {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        /* === COMPONENTES DE FORMULÁRIO === */
+        .form-group { margin: 12px 0; }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #2F5496;
+            font-size: 14px;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #2F5496;
+            outline: none;
+        }
+        
+        /* === COMPONENTES DE BOTÃO === */
+        .btn {
+            background: #2F5496;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            width: 100%;
+            display: block;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-danger { background: #dc3545; }
+        .btn-success { background: #28a745; }
+        .btn-warning { background: #ffc107; color: #000; }
+        .btn-info { background: #17a2b8; }
+        .btn-secondary { background: #6c757d; }
+        
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 12px;
+            width: auto;
+            display: inline-block;
+            margin: 2px;
+        }
+        
+        .btn-atualizar {
+            background: #17a2b8;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            width: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-atualizar:hover {
+            background: #138496;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* === LAYOUT RESPONSIVO === */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .clientes-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 12px 0;
+        }
+        
+        .processos-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+            justify-content: space-between;
+        }
+        
+        .teses-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .container-botoes {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            gap: 15px;
+        }
+        
+        .botoes-direita {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .botoes-internos {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .botoes-internos .btn {
+            margin: 5px 0;
+            font-size: 13px;
+            padding: 10px 15px;
+        }
+        
+        /* === COMPONENTES ESPECÍFICOS === */
+        .stat-card {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2F5496;
+        }
+        
+        .processo-card {
+            background: #e8f5e8;
+            padding: 12px 8px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 12px;
+            flex: 1;
+            min-width: 80px;
+        }
+        
+        .processo-number {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        
+        .tese-card {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .tese-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        .tese-selecao {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .lista-clientes {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .cliente-item {
+            background: #f8f9fa;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border-left: 4px solid #2F5496;
+            font-size: 13px;
+        }
+        
+        .cliente-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .cliente-codigo {
+            background: #2F5496;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .total-clientes {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .total-clientes .numero {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2F5496;
+        }
+        
+        /* === SISTEMA DE DÚVIDAS === */
+        .lista-duvidas-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #2F5496;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .lista-duvidas-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .lista-duvidas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .duvida-area {
+            background: #2F5496;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        .duvida-resumo {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .duvida-info {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .duvida-expandida {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eaeaea;
+            display: none;
+        }
+        
+        .duvida-expandida.ativa { display: block; }
+        
+        .resposta-item {
+            background: #e3f2fd;
+            padding: 15px;
+            margin: 10px 0 10px 20px;
+            border-radius: 8px;
+            border-left: 3px solid #2F5496;
+        }
+        
+        .form-resposta {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .filtro-duvidas {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .filtro-botoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .filtro-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .filtro-btn.ativo { background: #2F5496; }
+        .filtro-btn:hover { background: #5a6268; }
+        
+        .btn-excluir-duvida {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .btn-excluir-duvida:hover { background: #c82333; }
+        
+        /* === UTILITÁRIOS === */
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .print-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .print-btn:hover { background: #5a6268; }
+        
+        /* === RODAPÉ === */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+        
+        /* === CÓDIGO GERADO === */
+        .codigo-gerado {
+            background: #2F5496;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        /* === BUSCA DE CLIENTE === */
+        .busca-cliente-container {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .busca-cliente-container input {
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .busca-cliente-container button {
+            padding: 10px 20px;
+            background: #2F5496;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        /* === ÁREA DE PROPAGANDAS === */
+        .propaganda-area {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .propaganda-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 2px solid #2F5496;
+        }
+        
+        .propaganda-title {
+            color: #2F5496;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .propaganda-content {
+            text-align: center;
+        }
+        
+        .propaganda-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            max-height: 200px;
+            object-fit: cover;
+        }
+        
+        .btn-curso {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-curso:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+        
+        /* === MODAL DE SENHA === */
+        .modal-senha {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+        
+        .modal-conteudo {
+            background: white;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: modalEntrada 0.3s ease-out;
+        }
+        
+        @keyframes modalEntrada {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-titulo {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .modal-descricao {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        .senha-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #2F5496;
+            border-radius: 10px;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .senha-input:focus {
+            border-color: #1e3a8a;
+            box-shadow: 0 0 0 3px rgba(47, 84, 150, 0.2);
+        }
+        
+        .modal-botoes {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .btn-modal {
+            padding: 12px 25px;
+            min-width: 120px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-modal-primario {
+            background: #2F5496;
+            color: white;
+        }
+        
+        .btn-modal-primario:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+        }
+        
+        .btn-modal-secundario {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-modal-secundario:hover {
+            background: #5a6268;
+        }
+        
+        .contato-admin {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .contato-admin strong {
+            color: #dc3545;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .senha-erro {
+            color: #dc3545;
+            font-weight: 600;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        /* === MODAL DE REGISTRO === */
+        .modal-registro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a, #2F5496);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            padding: 20px;
+        }
+        
+        .modal-registro-conteudo {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: modalEntrada 0.5s ease-out;
+        }
+        
+        .registro-titulo {
+            color: #1e3a8a;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .registro-subtitulo {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .registro-requisito {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: left;
+            font-size: 14px;
+        }
+        
+        .registro-requisito strong {
+            color: #1e3a8a;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .registro-obs {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .registro-sucesso {
+            display: none;
+            padding: 20px;
+            background: #d4edda;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: #155724;
+        }
+        
+        .registro-erro {
+            display: none;
+            padding: 15px;
+            background: #f8d7da;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #721c24;
+        }
+        
+        .registro-loading {
+            display: none;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2F5496;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* === ANIMAÇÃO DE TREME === */
+        @keyframes tremer {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        
+        .treme {
+            animation: tremer 0.5s;
+        }
+        
+        /* === FEEDBACK VISUAL === */
+        .feedback-mensagem {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .feedback-success {
+            background: #28a745;
+        }
+        
+        .feedback-danger {
+            background: #dc3545;
+        }
+        
+        /* === RESPONSIVIDADE === */
+        @media (max-width: 768px) {
+            .clientes-container { grid-template-columns: 1fr; }
+            .modal-registro-conteudo { padding: 25px; }
+        }
+        
+        @media print {
+            .no-print { display: none !important; }
+            .card { box-shadow: none; border: 1px solid #ddd; }
+            body { background: white; color: black; }
+        }
+    </style>
+</head>
+<body>
+    <!-- MODAL DE REGISTRO -->
+    <div id="modalRegistro" class="modal-registro">
+        <div class="modal-registro-conteudo">
+            <h2 class="registro-titulo">⚖️ Registro Obrigatório</h2>
+            <p class="registro-subtitulo">
+                Para acessar o Sistema Jurídico Completo, é necessário realizar um cadastro rápido.
+            </p>
+            
+            <div class="registro-requisito">
+                <strong>📋 Por que preciso me registrar?</strong>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>Controle de acesso ao sistema</li>
+                    <li>Estatísticas de uso para melhorias</li>
+                    <li>Comunicação sobre atualizações</li>
+                </ul>
+            </div>
+            
+            <div id="registroErro" class="registro-erro"></div>
+            <div id="registroSucesso" class="registro-sucesso"></div>
+            
+            <form id="formRegistro" onsubmit="return false;">
+                <div class="form-group">
+                    <label>Nome Completo *</label>
+                    <input type="text" id="registroNome" placeholder="Seu nome completo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="registroEmail" placeholder="seu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>WhatsApp *</label>
+                    <input type="text" id="registroWhatsApp" placeholder="(11) 99999-9999" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Cidade/Estado *</label>
+                    <input type="text" id="registroCidade" placeholder="Ex: São Paulo/SP" required>
+                </div>
+                
+                <div class="registro-obs">
+                    Seus dados serão enviados apenas para o administrador do sistema.
+                </div>
+                
+                <div class="registro-loading" id="registroLoading">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 10px;">Enviando dados...</p>
+                </div>
+                
+                <div class="modal-botoes" style="margin-top: 25px;">
+                    <button type="submit" class="btn-modal btn-modal-primario" onclick="registrarUsuario()">
+                        ✅ Registrar e Acessar Sistema
+                    </button>
+                </div>
+                
+                <div style="margin-top: 20px; font-size: 12px; color: #666;">
+                    <strong>Administrador:</strong> Túlio Mattos - (16) 99176-7468
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE SENHA -->
+    <div id="modalSenha" class="modal-senha">
+        <div class="modal-conteudo">
+            <h2 class="modal-titulo">🔒 Acesso Restrito</h2>
+            <p class="modal-descricao">Esta área é exclusiva para advogados da equipe. Digite a senha de acesso:</p>
+            
+            <input type="password" id="inputSenha" class="senha-input" placeholder="Digite a senha" autocomplete="off">
+            
+            <div id="mensagemErro" class="senha-erro">
+                ❌ Senha não cadastrada
+            </div>
+            
+            <div class="modal-botoes">
+                <button class="btn-modal btn-modal-primario" onclick="verificarSenha()">Acessar</button>
+                <button class="btn-modal btn-modal-secundario" onclick="fecharModalSenha()">Cancelar</button>
+            </div>
+            
+            <div class="contato-admin">
+                <strong>⚠️ Problemas com acesso?</strong>
+                Entre em contato com o administrador:<br>
+                <strong>Túlio Mattos</strong><br>
+                📞 (16) 99176-7468
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMA PRINCIPAL -->
+    <div id="sistemaPrincipal" style="display: none;">
+        <div class="main-container">
+            <div class="container">
+                <!-- Dashboard -->
+                <div id="dashboard" class="tab-content active">
+                    <div class="header">
+                        <h1>⚖️ Sistema Jurídico Completo</h1>
+                        <p>Controle de Clientes, Processos e Teses Jurídicas</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>📊 Dashboard</h3>
+                        <div class="stats-grid" id="stats-container">
+                            <!-- Stats serão preenchidos via JavaScript -->
+                        </div>
+
+                        <h4 style="margin: 15px 0 10px 0; color: #2F5496;">📈 Processos por Área</h4>
+                        <div class="processos-grid" id="processos-container">
+                            <!-- Processos serão preenchidos via JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🚀 Ações Rápidas</h3>
+                        <button class="btn" onclick="showTab('clientes')">👤 Cadastrar Cliente</button>
+                        <button class="btn" onclick="showTab('processos')">📁 Cadastrar Processo</button>
+                        <button class="btn" onclick="showTab('andamento')">📝 Cadastrar Andamento Processual</button>
+                        <button class="btn" onclick="showTab('consultas')">🔍 Consultas</button>
+                        <button class="btn" onclick="showTab('relatorios')">📊 Relatórios</button>
+                        <button class="btn" onclick="showTab('backups')">💾 Backups</button>
+                        <button class="btn btn-info" onclick="showTab('teses')">📚 Cadastro de Teses</button>
+                        <button class="btn btn-warning" onclick="executarAutoReparo()">🛠️ Sistema de Auto-Reparo</button>
+                        <button class="btn btn-secondary" onclick="abrirModalSenha()">❓ Dúvidas e Ajuda</button>
+                    </div>
+                </div>
+
+                <!-- Cadastro de Clientes -->
+                <div id="clientes" class="tab-content">
+                    <div class="card">
+                        <h3>👤 Cadastro de Clientes</h3>
+                        
+                        <div class="form-container">
+                            <div class="form-left">
+                                <div class="codigo-gerado" id="codigo-cliente">
+                                    Código: Gerando...
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Código do Cliente:</label>
+                                    <input type="text" id="cliente-codigo" readonly style="background-color: #f0f0f0; font-weight: bold;">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Nome Completo *</label>
+                                    <input type="text" id="cliente-nome" placeholder="Nome completo do cliente" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Sexo</label>
+                                    <select id="cliente-sexo">
+                                        <option value="">Selecione</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Feminino">Feminino</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>CPF</label>
+                                    <input type="text" id="cliente-cpf" placeholder="000.000.000-00" oninput="formatarCPF(this)">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>RG</label>
+                                    <input type="text" id="cliente-rg" placeholder="00.000.000-0" oninput="formatarRG(this)">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Telefone/WhatsApp</label>
+                                    <input type="text" id="cliente-telefone" placeholder="(11) 99999-9999" oninput="formatarTelefone(this)">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" id="cliente-email" placeholder="cliente@email.com">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Endereço Completo</label>
+                                    <input type="text" id="cliente-endereco" placeholder="Rua, número, bairro, cidade">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Observações</label>
+                                    <textarea id="cliente-observacoes" placeholder="Observações importantes..." rows="3"></textarea>
+                                </div>
+                                
+                                <div class="btn-row">
+                                    <button class="btn btn-success" onclick="salvarCliente()">💾 Salvar Cliente</button>
+                                    <button class="btn" onclick="limparFormularioCliente()">🗑️ Limpar Formulário</button>
+                                    <button class="btn btn-atualizar" onclick="atualizarListaClientesDireita()">🔄 Atualizar Lista</button>
+                                    <button class="btn" onclick="showTab('dashboard')">↩️ Voltar ao Dashboard</button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-right">
+                                <h4>📋 Clientes Cadastrados</h4>
+                                <div id="lista-clientes-direita">
+                                    <!-- Lista de clientes será carregada aqui -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cadastro de Processos -->
+                <div id="processos" class="tab-content">
+                    <div class="card">
+                        <h3>📁 Cadastrar Processo</h3>
+                        
+                        <div class="form-container">
+                            <div class="form-left">
+                                <div class="form-group">
+                                    <label>Código do Cliente *</label>
+                                    <input type="text" id="processo-cliente-codigo" placeholder="Código do cliente (Ex: 0001)" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Cliente Encontrado:</label>
+                                    <input type="text" id="cliente-processo-info" readonly style="background-color: #f0f0f0;">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Número do Processo *</label>
+                                    <input type="text" id="processo-numero" placeholder="Ex: 2024.001.0001" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Tipo do Processo *</label>
+                                    <select id="processo-tipo" required>
+                                        <option value="">Selecione o tipo</option>
+                                        <option value="Trabalhista">Trabalhista</option>
+                                        <option value="Cível">Cível</option>
+                                        <option value="Consumidor">Consumidor</option>
+                                        <option value="Previdenciário">Previdenciário</option>
+                                        <option value="Família">Família</option>
+                                        <option value="Criminal">Criminal</option>
+                                        <option value="Outros">Outros</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Local do Processo</label>
+                                    <input type="text" id="processo-local" placeholder="Ex: Fórum Central">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Data de Início</label>
+                                    <input type="date" id="processo-data">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Valor da Causa</label>
+                                    <input type="text" id="processo-valor" placeholder="R$ 0,00" oninput="formatarMoeda(this)">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select id="processo-status">
+                                        <option value="Ativo">Ativo</option>
+                                        <option value="Arquivado">Arquivado</option>
+                                        <option value="Concluído">Concluído</option>
+                                        <option value="Suspenso">Suspenso</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Resumo do Processo *</label>
+                                    <textarea id="processo-resumo" placeholder="Descreva detalhadamente o processo..." rows="5" required></textarea>
+                                </div>
+                                
+                                <div class="btn-row">
+                                    <button class="btn btn-success" onclick="salvarProcesso()">💾 Salvar Processo</button>
+                                    <button class="btn" onclick="limparFormularioProcesso()">🗑️ Limpar Formulário</button>
+                                    <button class="btn btn-atualizar" onclick="atualizarListaProcessosDireita()">🔄 Atualizar Lista</button>
+                                    <button class="btn" onclick="showTab('dashboard')">↩️ Voltar ao Dashboard</button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-right">
+                                <h4>📁 Processos Cadastrados</h4>
+                                <div id="lista-processos-direita">
+                                    <!-- Lista de processos será carregada aqui -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Andamento Processual -->
+                <div id="andamento" class="tab-content">
+                    <div class="card">
+                        <h3>📝 Cadastrar Andamento Processual</h3>
+                        
+                        <div class="form-container">
+                            <div class="form-left">
+                                <div class="busca-cliente-container">
+                                    <input type="text" id="buscar-cliente-andamento" placeholder="Buscar cliente por código ou CPF">
+                                    <button onclick="buscarClienteParaProcesso()">🔍</button>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Cliente Selecionado:</label>
+                                    <input type="text" id="cliente-selecionado" readonly style="background-color: #f0f0f0;">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Selecione o Processo:</label>
+                                    <select id="andamento-processo">
+                                        <option value="">Selecione um processo</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Data do Andamento:</label>
+                                    <input type="date" id="andamento-data">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Tipo de Andamento:</label>
+                                    <select id="andamento-tipo">
+                                        <option value="Petição">Petição</option>
+                                        <option value="Decisão">Decisão</option>
+                                        <option value="Audiência">Audiência</option>
+                                        <option value="Citação">Citação</option>
+                                        <option value="Intimação">Intimação</option>
+                                        <option value="Sentença">Sentença</option>
+                                        <option value="Recurso">Recurso</option>
+                                        <option value="Outros">Outros</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Descrição do Andamento *</label>
+                                    <textarea id="novo-andamento" placeholder="Descreva o novo andamento, atualizações, decisões judiciais, prazos, etc..." rows="5" required></textarea>
+                                </div>
+                                
+                                <div class="btn-row">
+                                    <button class="btn btn-success" onclick="adicionarAndamento()">➕ Adicionar Andamento</button>
+                                    <button class="btn" onclick="limparFormularioAndamento()">🗑️ Limpar Formulário</button>
+                                    <button class="btn btn-atualizar" onclick="atualizarListaAndamentosDireita()">🔄 Atualizar Lista</button>
+                                    <button class="btn" onclick="showTab('dashboard')">↩️ Voltar ao Dashboard</button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-right">
+                                <h4>📝 Andamentos Cadastrados</h4>
+                                <div id="lista-andamentos-direita">
+                                    <!-- Lista de andamentos será carregada aqui -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consultas -->
+                <div id="consultas" class="tab-content">
+                    <div class="card">
+                        <h3>🔍 Consultas</h3>
+                        
+                        <div class="search-box">
+                            <h4>📋 Consultar Clientes</h4>
+                            <div class="form-group">
+                                <input type="text" id="consulta-cliente" placeholder="Digite código, nome ou CPF...">
+                            </div>
+                            <button class="btn" onclick="consultarClientes()">🔍 Buscar Clientes</button>
+                            <button class="btn" onclick="listarTodosClientes()">📄 Listar Todos</button>
+                        </div>
+                        
+                        <div class="search-box">
+                            <h4>📁 Consultar Processos</h4>
+                            <div class="form-group">
+                                <input type="text" id="consulta-processo" placeholder="Digite número, tipo ou cliente...">
+                            </div>
+                            <button class="btn" onclick="consultarProcessos()">🔍 Buscar Processos</button>
+                            <button class="btn" onclick="listarTodosProcessos()">📄 Listar Todos</button>
+                            <button class="btn btn-warning" onclick="consultarAndamentoProcessual()">📈 Andamento Processual</button>
+                        </div>
+                        
+                        <div id="resultados-consulta"></div>
+                        
+                        <div class="btn-row">
+                            <button class="btn btn-atualizar" onclick="consultarClientes()">🔄 Atualizar Consulta</button>
+                            <button class="btn" onclick="showTab('dashboard')">↩️ Voltar ao Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relatórios -->
+                <div id="relatorios" class="tab-content">
+                    <div class="card">
+                        <h3>📊 Relatórios</h3>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" id="rel-clientes-ativos">0</div>
+                                <p>Clientes Ativos</p>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="rel-processos-ativos">0</div>
+                                <p>Processos Ativos</p>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="gerarRelatorioClientesAlfabetico()">👤 Clientes (Ordem Alfabética)</button>
+                        <button class="btn" onclick="gerarRelatorioClientesProcesso()">⚖️ Clientes por Processo</button>
+                        
+                        <div class="search-box">
+                            <h4>🔍 Relatório Cliente Específico</h4>
+                            <div class="form-group">
+                                <input type="text" id="relatorio-cliente-especifico" placeholder="Digite código ou CPF do cliente">
+                            </div>
+                            <button class="btn" onclick="gerarRelatorioClienteEspecifico()">📋 Gerar Relatório</button>
+                        </div>
+                        
+                        <button class="btn" onclick="gerarRelatorioProcessosDetalhado()">📁 Processos Detalhados</button>
+                        <button class="btn btn-warning" onclick="gerarRelatorioAndamentoGeral()">📈 Andamento Geral</button>
+                        
+                        <div id="relatorio-conteudo"></div>
+                        
+                        <div class="btn-row">
+                            <button class="btn btn-success print-btn" onclick="window.print()">🖨️ Imprimir Relatório</button>
+                            <button class="btn btn-atualizar" onclick="gerarRelatorioClienteEspecifico()">🔄 Atualizar Relatório</button>
+                            <button class="btn" onclick="showTab('dashboard')">↩️ Voltar ao Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backups -->
+                <div id="backups" class="tab-content">
+                    <div class="card">
+                        <h3>💾 Sistema de Backups</h3>
+                        
+                        <div class="card">
+                            <h4>📦 Backup de Clientes e Processos</h4>
+                            <p>Exporte todos os dados de clientes, processos e andamentos para um arquivo de backup.</p>
+                            <button class="btn btn-success" onclick="exportBackupClientes()">💾 Gerar Backup de Clientes</button>
+                            <button class="btn btn-warning" onclick="importBackupClientes()">📥 Importar Backup de Clientes</button>
+                        </div>
+                        
+                        <div class="card">
+                            <h4>📚 Backup de Teses Jurídicas</h4>
+                            <p>Exporte todas as teses jurídicas cadastradas para um arquivo de backup separado.</p>
+                            <button class="btn btn-success" onclick="exportBackupTeses()">💾 Gerar Backup de Teses</button>
+                            <button class="btn btn-warning" onclick="importBackupTeses()">📥 Importar Backup de Teses</button>
+                        </div>
+                        
+                        <div class="btn-row">
+                            <button class="btn" onclick="showTab('dashboard')">↩️ Voltar ao Dashboard</button>
+                            <button class="btn btn-atualizar" onclick="atualizarSistema()">🔄 Atualizar Sistema</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teses Jurídicas -->
+                <div id="teses" class="tab-content">
+                    <div class="card">
+                        <h3>📚 Cadastro de Teses Jurídicas</h3>
+                        
+                        <div class="btn-row">
+                            <button class="btn btn-danger" onclick="showTab('consultar-teses')">🔍 Consultar Teses Cadastradas</button>
+                        </div>
+                        
+                        <div class="card">
+                            <h4>➕ Cadastrar Nova Tese</h4>
+                            <div class="form-group">
+                                <label>Nome da Tese:</label>
+                                <input type="text" id="nova-tese-nome" placeholder="Digite o nome da nova tese">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Tese:</label>
+                                    <select id="nova-tese-tipo">
+                                    <option value="inicial">Tese para Inicial</option>
+                                    <option value="impugnacao">Tese para Impugnação</option>
+                                    <option value="recurso">Tese para Recurso</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-success" onclick="criarNovaTese()">➕ Criar Nova Tese</button>
+                        </div>
+                        
+                        <div class="teses-grid">
+                            <div class="tese-card">
+                                <h4>📝 Teses para Inicial</h4>
+                                <div class="form-group">
+                                    <label>Selecione a Tese:</label>
+                                    <select id="tese-inicial" onchange="mostrarFormularioTese('inicial')">
+                                        <option value="">Selecione uma tese</option>
+                                    </select>
+                                </div>
+                                <div id="formulario-tese-inicial" class="tese-form" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Conteúdo da Tese:</label>
+                                        <textarea id="conteudo-tese-inicial" rows="8" placeholder="Digite ou cole o conteúdo da tese aqui..."></textarea>
+                                    </div>
+                                    <div class="btn-row">
+                                        <button class="btn btn-success btn-small" onclick="salvarTese('inicial')">💾 Salvar Tese</button>
+                                        <button class="btn btn-info btn-small" onclick="editarTese('inicial')">✏️ Editar Tese</button>
+                                        <button class="btn btn-danger btn-small" onclick="excluirTese('inicial')">🗑️ Excluir Tese</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tese-card">
+                                <h4>⚖️ Teses para Impugnação</h4>
+                                <div class="form-group">
+                                    <label>Selecione a Tese:</label>
+                                    <select id="tese-impugnacao" onchange="mostrarFormularioTese('impugnacao')">
+                                        <option value="">Selecione uma tese</option>
+                                    </select>
+                                </div>
+                                <div id="formulario-tese-impugnacao" class="tese-form" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Conteúdo da Tese:</label>
+                                        <textarea id="conteudo-tese-impugnacao" rows="8" placeholder="Digite ou cole o conteúdo da tese aqui..."></textarea>
+                                    </div>
+                                    <div class="btn-row">
+                                        <button class="btn btn-success btn-small" onclick="salvarTese('impugnacao')">💾 Salvar Tese</button>
+                                        <button class="btn btn-info btn-small" onclick="editarTese('impugnacao')">✏️ Editar Tese</button>
+                                        <button class="btn btn-danger btn-small" onclick="excluirTese('impugnacao')">🗑️ Excluir Tese</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tese-card">
+                                <h4>📄 Teses para Recurso</h4>
+                                <div class="form-group">
+                                    <label>Selecione a Tese:</label>
+                                    <select id="tese-recurso" onchange="mostrarFormularioTese('recurso')">
+                                        <option value="">Selecione uma tese</option>
+                                    </select>
+                                </div>
+                                <div id="formulario-tese-recurso" class="tese-form" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Conteúdo da Tese:</label>
+                                        <textarea id="conteudo-tese-recurso" rows="8" placeholder="Digite ou cole o conteúdo da tese aqui..."></textarea>
+                                    </div>
+                                    <div class="btn-row">
+                                        <button class="btn btn-success btn-small" onclick="salvarTese('recurso')">💾 Salvar Tese</button>
+                                        <button class="btn btn-info btn-small" onclick="editarTese('recurso')">✏️ Editar Tese</button>
+                                        <button class="btn btn-danger btn-small" onclick="excluirTese('recurso')">🗑️ Excluir Tese</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="btn-row">
+                            <button class="btn btn-success" onclick="carregarTeses()">🔄 Carregar Teses</button>
+                            <button class="btn btn-atualizar" onclick="carregarTesesDireita()">🔄 Atualizar Lista</button>
+                            <button class="btn" onclick="showTab('dashboard')">↩️ Voltar ao Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consultar Teses -->
+                <div id="consultar-teses" class="tab-content">
+                    <div class="card">
+                        <h3>🔍 Consultar Teses Cadastradas</h3>
+                        <div class="tese-selecao">
+                            <div class="form-group">
+                                <label>Selecione o Tipo de Tese:</label>
+                                <select id="tipo-tese-consulta" onchange="carregarTesesParaConsulta()">
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="inicial">Tese para Inicial</option>
+                                    <option value="impugnacao">Tese para Impugnação</option>
+                                    <option value="recurso">Tese para Recurso</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Selecione a Tese:</label>
+                                <select id="tese-consulta" onchange="mostrarTeseSelecionada()">
+                                    <option value="">Selecione uma tese</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="tese-exibicao" style="display: none;">
+                            <div class="card">
+                                <h4 id="titulo-tese"></h4>
+                                <div class="data-item">
+                                    <pre id="conteudo-tese-consulta" style="white-space: pre-wrap; font-family: inherit;"></pre>
+                                </div>
+                                <button class="btn btn-success" onclick="copiarTeseConsulta()">📋 Copiar Tese</button>
+                                <button class="print-btn" onclick="imprimirTese()">🖨️ Imprimir Tese</button>
+                            </div>
+                        </div>
+                        <div class="btn-row">
+                            <button class="btn btn-atualizar" onclick="carregarTesesParaConsulta()">🔄 Atualizar Lista</button>
+                            <button class="btn" onclick="showTab('teses')">↩️ Voltar para Teses</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dúvidas e Ajuda -->
+                <div id="duvidas" class="tab-content">
+                    <div class="card">
+                        <h3>❓ Dúvidas e Ajuda</h3>
+                        <p>Compartilhe suas dúvidas e ajude outros advogados da equipe.</p>
+                        
+                        <div class="card">
+                            <h4>➕ Nova Dúvida</h4>
+                            <div class="form-group">
+                                <label>Seu Nome:</label>
+                                <input type="text" id="duvida-nome" placeholder="Digite seu nome">
+                            </div>
+                            <div class="form-group">
+                                <label>Sua Cidade:</label>
+                                <input type="text" id="duvida-cidade" placeholder="Digite sua cidade">
+                            </div>
+                            <div class="form-group">
+                                <label>Dúvida na área de:</label>
+                                    <select id="duvida-area">
+                                    <option value="">Selecione a área</option>
+                                    <option value="Trabalhista">Trabalhista</option>
+                                    <option value="Cível">Cível</option>
+                                    <option value="Previdenciário">Previdenciário</option>
+                                    <option value="Criminal">Criminal</option>
+                                    <option value="Consumidor">Consumidor</option>
+                                    <option value="Outras">Outras</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Resumo da Dúvida (máx. 200 caracteres):</label>
+                                <textarea id="duvida-resumo" rows="2" placeholder="Digite um resumo breve da sua dúvida (máximo 200 caracteres)" maxlength="200" oninput="atualizarContadorResumo()"></textarea>
+                                <small id="contador-resumo">0/200 caracteres</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição Completa da Dúvida:</label>
+                                <textarea id="duvida-descricao" rows="6" placeholder="Descreva sua dúvida em detalhes..."></textarea>
+                            </div>
+                            <div class="btn-row">
+                                <button class="btn btn-success" onclick="enviarDuvida()">📤 Enviar Duvida</button>
+                                <button class="btn btn-atualizar" onclick="carregarDuvidas()">🔄 Atualizar Dúvidas</button>
+                                <button class="btn" onclick="showTab('dashboard')">↩️ Voltar ao Dashboard</button>
+                            </div>
+                        </div>
+
+                        <!-- Filtro de Dúvidas -->
+                        <div class="filtro-duvidas">
+                            <h4>🔍 Filtrar Dúvidas por Área</h4>
+                            <div class="filtro-botoes">
+                                <button class="filtro-btn ativo" onclick="filtrarDuvidas('todas')">Todas</button>
+                                <button class="filtro-btn" onclick="filtrarDuvidas('Trabalhista')">Trabalhista</button>
+                                <button class="filtro-btn" onclick="filtrarDuvidas('Cível')">Cível</button>
+                                <button class="filtro-btn" onclick="filtrarDuvidas('Previdenciário')">Previdenciário</button>
+                                <button class="filtro-btn" onclick="filtrarDuvidas('Criminal')">Criminal</button>
+                                <button class="filtro-btn" onclick="filtrarDuvidas('Consumidor')">Consumidor</button>
+                                <button class="filtro-btn" onclick="filtrarDuvidas('Outras')">Outras</button>
+                            </div>
+                        </div>
+                        
+                        <div id="lista-duvidas"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ÁREA DE PROPAGANDAS -->
+            <div class="propaganda-area" id="propagandaContainer" style="display: none;">
+                <div class="propaganda-card">
+                    <h3 class="propaganda-title">🎓 Cursos em Destaque</h3>
+                    <div class="propaganda-content" id="propaganda-conteudo">
+                        <!-- Propagandas serão carregadas aqui -->
+                    </div>
+                </div>
+                
+                <div class="propaganda-card">
+                    <h3 class="propaganda-title">📢 Novidades</h3>
+                    <div id="novidades-conteudo">
+                        <!-- Novidades serão carregadas aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RODAPÉ -->
+        <div class="footer">
+            <p>2025 Túlio Mattos - Todos os direitos reservados</p>
+        </div>
+
+        <!-- File Inputs para Importar Backup -->
+        <input type="file" id="backup-file-clientes" accept=".json" style="display: none;">
+        <input type="file" id="backup-file-teses" accept=".json" style="display: none;">
+    </div>
+
+    <script>
+        // ========== CONFIGURAÇÃO DA SENHA ==========
+        const SENHA_CORRETA = "usuarioadv1010";
+        let senhaDigitada = false;
+
+        // ========== CONFIGURAÇÃO DO REGISTRO ==========
+        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzwW8iVM4-h5TbMaD2vOY-vimqVV0G7OBiJ699_Qp3bPK9ta523vCGYMPKPq05PbNY/exec";
+        const EMAIL_ADMIN = "tuliomattos@email.com";
+
+        // ========== SISTEMA DE BANCO DE DADOS ==========
+        const DB = {
+            clientes: JSON.parse(localStorage.getItem('sistema_juridico_clientes')) || [],
+            processos: JSON.parse(localStorage.getItem('sistema_juridico_processos')) || [],
+            andamentos: JSON.parse(localStorage.getItem('sistema_juridico_andamentos')) || [],
+            teses: JSON.parse(localStorage.getItem('sistema_juridico_teses')) || { inicial: {}, impugnacao: {}, recurso: {} },
+            duvidas: JSON.parse(localStorage.getItem('sistema_juridico_duvidas')) || [],
+            usuarioRegistrado: localStorage.getItem('sistema_juridico_usuario_registrado') === 'true',
+            
+            salvar: function() {
+                localStorage.setItem('sistema_juridico_clientes', JSON.stringify(this.clientes));
+                localStorage.setItem('sistema_juridico_processos', JSON.stringify(this.processos));
+                localStorage.setItem('sistema_juridico_andamentos', JSON.stringify(this.andamentos));
+                localStorage.setItem('sistema_juridico_teses', JSON.stringify(this.teses));
+                localStorage.setItem('sistema_juridico_duvidas', JSON.stringify(this.duvidas));
+                localStorage.setItem('sistema_juridico_usuario_registrado', this.usuarioRegistrado);
+                this.atualizarInterface();
+            },
+            
+            atualizarInterface: function() {
+                atualizarEstatisticas();
+                if (document.getElementById('clientes')?.classList.contains('active')) {
+                    atualizarListaClientesDireita();
+                }
+                if (document.getElementById('processos')?.classList.contains('active')) {
+                    atualizarListaProcessosDireita();
+                }
+                if (document.getElementById('andamento')?.classList.contains('active')) {
+                    atualizarListaAndamentosDireita();
+                }
+                if (document.getElementById('duvidas')?.classList.contains('active')) {
+                    carregarDuvidas();
+                }
+                if (document.getElementById('teses')?.classList.contains('active')) {
+                    carregarTeses();
+                }
+            },
+            
+            gerarCodigoCliente: function() {
+                if (this.clientes.length === 0) {
+                    return "0001";
+                }
+                
+                let maxCodigo = 0;
+                this.clientes.forEach(cliente => {
+                    const codigoNum = parseInt(cliente.codigo) || 0;
+                    if (codigoNum > maxCodigo) {
+                        maxCodigo = codigoNum;
+                    }
+                });
+                
+                const novoCodigo = maxCodigo + 1;
+                return novoCodigo.toString().padStart(4, '0');
+            }
+        };
+
+        // ========== SISTEMA DE REGISTRO DE USUÁRIOS ==========
+        function verificarRegistro() {
+            if (!DB.usuarioRegistrado) {
+                document.getElementById('modalRegistro').style.display = 'flex';
+                document.getElementById('sistemaPrincipal').style.display = 'none';
+            } else {
+                document.getElementById('modalRegistro').style.display = 'none';
+                document.getElementById('sistemaPrincipal').style.display = 'block';
+                inicializarSistema();
+            }
+        }
+
+        function registrarUsuario() {
+            const nome = document.getElementById('registroNome').value.trim();
+            const email = document.getElementById('registroEmail').value.trim();
+            const whatsapp = document.getElementById('registroWhatsApp').value.trim();
+            const cidade = document.getElementById('registroCidade').value.trim();
+            
+            if (!nome || !email || !whatsapp || !cidade) {
+                mostrarErroRegistro('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+            
+            if (!validarEmail(email)) {
+                mostrarErroRegistro('Por favor, insira um email válido.');
+                return;
+            }
+            
+            document.getElementById('registroLoading').style.display = 'block';
+            document.getElementById('registroErro').style.display = 'none';
+            
+            const dadosUsuario = {
+                nome: nome,
+                email: email,
+                whatsapp: whatsapp,
+                cidade: cidade,
+                primeiroAcesso: new Date().toISOString()
+            };
+            
+            enviarParaGoogleSheets(dadosUsuario);
+        }
+
+        function enviarParaGoogleSheets(dados) {
+            const params = new URLSearchParams();
+            params.append('nome', dados.nome);
+            params.append('email', dados.email);
+            params.append('whatsapp', dados.whatsapp);
+            params.append('cidade', dados.cidade);
+            params.append('primeiroAcesso', dados.primeiroAcesso);
+            
+            const url = `${GOOGLE_SHEETS_URL}?${params.toString()}`;
+            
+            fetch(url, {
+                method: 'GET',
+                mode: 'no-cors'
+            })
+            .then(() => {
+                finalizarRegistro(dados);
+            })
+            .catch(error => {
+                console.log('Google Sheets falhou, tentando fallback...', error);
+                enviarFallbackEmail(dados);
+            });
+        }
+
+        function enviarFallbackEmail(dados) {
+            const assunto = 'Novo Registro - Sistema Jurídico';
+            const corpo = `
+Nome: ${dados.nome}
+Email: ${dados.email}
+WhatsApp: ${dados.whatsapp}
+Cidade: ${dados.cidade}
+Primeiro Acesso: ${new Date().toLocaleString()}
+            `.trim();
+            
+            const mailtoLink = `mailto:${EMAIL_ADMIN}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+            window.open(mailtoLink, '_blank');
+            
+            finalizarRegistro(dados);
+        }
+
+        function finalizarRegistro(dados) {
+            const registros = JSON.parse(localStorage.getItem('registros_usuarios') || '[]');
+            registros.push({
+                ...dados,
+                dataRegistro: new Date().toISOString()
+            });
+            localStorage.setItem('registros_usuarios', JSON.stringify(registros));
+            
+            DB.usuarioRegistrado = true;
+            DB.salvar();
+            
+            document.getElementById('registroLoading').style.display = 'none';
+            document.getElementById('registroSucesso').innerHTML = `
+                ✅ <strong>Registro realizado com sucesso!</strong><br>
+                Bem-vindo(a) ao Sistema Jurídico Completo, ${dados.nome}.
+            `;
+            document.getElementById('registroSucesso').style.display = 'block';
+            
+            document.getElementById('formRegistro').querySelectorAll('input').forEach(input => {
+                input.disabled = true;
+            });
+            
+            setTimeout(() => {
+                document.getElementById('modalRegistro').style.display = 'none';
+                document.getElementById('sistemaPrincipal').style.display = 'block';
+                inicializarSistema();
+            }, 2000);
+        }
+
+        function mostrarErroRegistro(mensagem) {
+            document.getElementById('registroErro').innerHTML = `❌ ${mensagem}`;
+            document.getElementById('registroErro').style.display = 'block';
+            document.getElementById('registroLoading').style.display = 'none';
+        }
+
+        function validarEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // ========== FUNÇÕES DO SISTEMA DE SENHA ==========
+        function abrirModalSenha() {
+            const modal = document.getElementById('modalSenha');
+            const inputSenha = document.getElementById('inputSenha');
+            
+            modal.style.display = 'flex';
+            inputSenha.value = '';
+            inputSenha.focus();
+            
+            document.getElementById('mensagemErro').style.display = 'none';
+        }
+
+        function fecharModalSenha() {
+            document.getElementById('modalSenha').style.display = 'none';
+            document.getElementById('inputSenha').value = '';
+            document.getElementById('mensagemErro').style.display = 'none';
+        }
+
+        function verificarSenha() {
+            const senha = document.getElementById('inputSenha').value;
+            const mensagemErro = document.getElementById('mensagemErro');
+            
+            if (senha === SENHA_CORRETA) {
+                senhaDigitada = true;
+                fecharModalSenha();
+                
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.getElementById('duvidas').classList.add('active');
+                
+                carregarDuvidas();
+            } else {
+                mensagemErro.innerHTML = `❌ Senha não cadastrada. Entre em contato com o administrador:<br><strong>Túlio Mattos (16) 99176-7468</strong>`;
+                mensagemErro.style.display = 'block';
+                document.getElementById('inputSenha').value = '';
+                document.getElementById('inputSenha').focus();
+                
+                const input = document.getElementById('inputSenha');
+                input.style.borderColor = '#dc3545';
+                input.classList.add('treme');
+                setTimeout(() => {
+                    input.classList.remove('treme');
+                }, 500);
+            }
+        }
+
+        // ========== FUNÇÕES DE FORMATAÇÃO ==========
+        function formatarCPF(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.substring(0, 11);
+            
+            if (value.length <= 11) {
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            }
+            
+            input.value = value;
+        }
+
+        function formatarRG(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 9) value = value.substring(0, 9);
+            
+            if (value.length <= 9) {
+                value = value.replace(/(\d{2})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            }
+            
+            input.value = value;
+        }
+
+        function formatarTelefone(input) {
+            let value = input.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                value = '(' + value;
+            }
+            if (value.length > 3) {
+                value = value.substring(0, 3) + ') ' + value.substring(3);
+            }
+            if (value.length > 10) {
+                value = value.substring(0, 10) + '-' + value.substring(10);
+            }
+            
+            input.value = value.substring(0, 15);
+        }
+
+        function formatarMoeda(input) {
+            let value = input.value.replace(/\D/g, '');
+            value = (value / 100).toFixed(2) + '';
+            value = value.replace(".", ",");
+            value = value.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+            value = value.replace(/(\d)(\d{3}),/g, "$1.$2,");
+            
+            if (value === '0,00') {
+                input.value = '';
+            } else {
+                input.value = 'R$ ' + value;
+            }
+        }
+
+        // ========== FUNÇÕES PRINCIPAIS ==========
+        function showTab(tabName) {
+            const propagandaContainer = document.getElementById('propagandaContainer');
+            if (tabName === 'dashboard') {
+                propagandaContainer.style.display = 'block';
+            } else {
+                propagandaContainer.style.display = 'none';
+            }
+            
+            if (tabName === 'duvidas') {
+                if (senhaDigitada) {
+                    document.querySelectorAll('.tab-content').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    document.getElementById(tabName).classList.add('active');
+                    carregarDuvidas();
+                } else {
+                    abrirModalSenha();
+                }
+                return;
+            }
+            
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+            
+            const inicializacoes = {
+                'clientes': () => {
+                    inicializarCadastroCliente();
+                },
+                'processos': () => {
+                    document.getElementById('processo-data').valueAsDate = new Date();
+                    document.getElementById('processo-cliente-codigo').value = '';
+                    document.getElementById('cliente-processo-info').value = '';
+                    atualizarListaProcessosDireita();
+                },
+                'andamento': () => {
+                    document.getElementById('andamento-data').valueAsDate = new Date();
+                    document.getElementById('buscar-cliente-andamento').value = '';
+                    document.getElementById('cliente-selecionado').value = '';
+                    atualizarListaAndamentosDireita();
+                },
+                'teses': () => carregarTeses(),
+                'consultar-teses': () => {
+                    document.getElementById('tese-exibicao').style.display = 'none';
+                },
+                'duvidas': () => carregarDuvidas(),
+                'consultas': () => {
+                    document.getElementById('consulta-cliente').value = '';
+                    document.getElementById('consulta-processo').value = '';
+                },
+                'relatorios': () => {
+                    atualizarRelatorios();
+                }
+            };
+            
+            if (inicializacoes[tabName]) {
+                inicializacoes[tabName]();
+            }
+            
+            atualizarEstatisticas();
+        }
+
+        // ========== FUNÇÕES DE CLIENTES ==========
+        function inicializarCadastroCliente() {
+            const novoCodigo = DB.gerarCodigoCliente();
+            document.getElementById('cliente-codigo').value = novoCodigo;
+            document.getElementById('codigo-cliente').textContent = `Código: ${novoCodigo}`;
+            
+            document.getElementById('cliente-nome').value = '';
+            document.getElementById('cliente-sexo').value = '';
+            document.getElementById('cliente-cpf').value = '';
+            document.getElementById('cliente-rg').value = '';
+            document.getElementById('cliente-telefone').value = '';
+            document.getElementById('cliente-email').value = '';
+            document.getElementById('cliente-endereco').value = '';
+            document.getElementById('cliente-observacoes').value = '';
+            
+            atualizarListaClientesDireita();
+        }
+
+        function salvarCliente() {
+            const codigo = document.getElementById('cliente-codigo').value;
+            const nome = document.getElementById('cliente-nome').value;
+            
+            if (!nome) {
+                alert('Por favor, preencha o nome do cliente');
+                return;
+            }
+            
+            const cliente = {
+                codigo: codigo,
+                nome: nome,
+                sexo: document.getElementById('cliente-sexo').value,
+                cpf: document.getElementById('cliente-cpf').value,
+                rg: document.getElementById('cliente-rg').value,
+                endereco: document.getElementById('cliente-endereco').value,
+                telefone: document.getElementById('cliente-telefone').value,
+                email: document.getElementById('cliente-email').value,
+                observacoes: document.getElementById('cliente-observacoes').value,
+                dataCadastro: new Date().toLocaleString('pt-BR'),
+                status: 'Ativo'
+            };
+            
+            DB.clientes.push(cliente);
+            DB.salvar();
+            
+            alert(`Cliente ${codigo} - ${nome} cadastrado com sucesso!`);
+            inicializarCadastroCliente();
+        }
+
+        function limparFormularioCliente() {
+            inicializarCadastroCliente();
+        }
+
+        function atualizarListaClientesDireita() {
+            const container = document.getElementById('lista-clientes-direita');
+            if (!container) return;
+
+            if (DB.clientes.length === 0) {
+                container.innerHTML = '<div class="alert alert-danger">Nenhum cliente cadastrado ainda.</div>';
+                return;
+            }
+
+            const clientesOrdenados = [...DB.clientes].sort((a, b) => {
+                return parseInt(b.codigo) - parseInt(a.codigo);
+            });
+
+            let html = '';
+            clientesOrdenados.forEach(cliente => {
+                html += `
+                    <div class="cadastro-item">
+                        <div class="cadastro-header">
+                            <span class="cliente-codigo">#${cliente.codigo}</span>
+                            <strong>${cliente.nome}</strong>
+                        </div>
+                        <div class="detalhes">
+                            <div>📞 ${cliente.telefone || 'Não informado'}</div>
+                            <div>🆔 ${cliente.cpf || 'Não informado'}</div>
+                            <div>📧 ${cliente.email || 'Não informado'}</div>
+                            <div>📅 ${cliente.dataCadastro}</div>
+                            <div class="cadastro-acoes">
+                                <button class="btn-small btn-success" onclick="editarCliente('${cliente.codigo}')">✏️ Alterar</button>
+                                <button class="btn-small btn-danger" onclick="excluirCliente('${cliente.codigo}')">🗑️ Excluir</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function editarCliente(codigo) {
+            const cliente = DB.clientes.find(c => c.codigo === codigo);
+            if (!cliente) return;
+
+            document.getElementById('cliente-codigo').value = cliente.codigo;
+            document.getElementById('codigo-cliente').textContent = `Código: ${cliente.codigo} (Editando)`;
+            document.getElementById('cliente-nome').value = cliente.nome;
+            document.getElementById('cliente-sexo').value = cliente.sexo || '';
+            document.getElementById('cliente-cpf').value = cliente.cpf || '';
+            document.getElementById('cliente-rg').value = cliente.rg || '';
+            document.getElementById('cliente-telefone').value = cliente.telefone || '';
+            document.getElementById('cliente-email').value = cliente.email || '';
+            document.getElementById('cliente-endereco').value = cliente.endereco || '';
+            document.getElementById('cliente-observacoes').value = cliente.observacoes || '';
+
+            DB.clientes = DB.clientes.filter(c => c.codigo !== codigo);
+            DB.salvar();
+        }
+
+        function excluirCliente(codigo) {
+            if (confirm(`⚠️ Tem certeza que deseja excluir o cliente ${codigo}?\n\nEsta ação não pode ser desfeita.`)) {
+                DB.clientes = DB.clientes.filter(cliente => cliente.codigo !== codigo);
+                DB.salvar();
+                alert(`Cliente ${codigo} excluído com sucesso!`);
+                atualizarListaClientesDireita();
+            }
+        }
+
+        // ========== FUNÇÕES DE PROCESSOS ==========
+        function buscarClienteParaProcesso() {
+            const codigo = document.getElementById('processo-cliente-codigo').value;
+            const cliente = DB.clientes.find(c => c.codigo === codigo);
+            
+            if (cliente) {
+                document.getElementById('cliente-processo-info').value = `${cliente.codigo} - ${cliente.nome}`;
+                alert(`Cliente ${codigo} encontrado!`);
+            } else {
+                document.getElementById('cliente-processo-info').value = '';
+                alert('Cliente não encontrado! Verifique o código.');
+            }
+        }
+
+        function salvarProcesso() {
+            const clienteCodigo = document.getElementById('processo-cliente-codigo').value;
+            const numero = document.getElementById('processo-numero').value;
+            const tipo = document.getElementById('processo-tipo').value;
+            const resumo = document.getElementById('processo-resumo').value;
+            
+            if (!clienteCodigo || !numero || !tipo || !resumo) {
+                alert('Por favor, preencha todos os campos obrigatórios');
+                return;
+            }
+            
+            const cliente = DB.clientes.find(c => c.codigo === clienteCodigo);
+            if (!cliente) {
+                alert('Cliente não encontrado! Verifique o código.');
+                return;
+            }
+            
+            let valor = 0;
+            const valorTexto = document.getElementById('processo-valor').value;
+            if (valorTexto) {
+                valor = parseFloat(valorTexto.replace('R$ ', '').replace('.', '').replace(',', '.'));
+            }
+
+            const processo = {
+                id: Date.now().toString(),
+                clienteCodigo: clienteCodigo,
+                clienteNome: cliente.nome,
+                numero: numero,
+                tipo: tipo,
+                local: document.getElementById('processo-local').value,
+                data: document.getElementById('processo-data').value || new Date().toISOString().split('T')[0],
+                valor: valor,
+                status: document.getElementById('processo-status').value || 'Ativo',
+                resumo: resumo,
+                dataCadastro: new Date().toLocaleString('pt-BR')
+            };
+            
+            DB.processos.push(processo);
+            DB.salvar();
+            
+            alert(`Processo ${numero} cadastrado com sucesso para o cliente ${clienteCodigo}!`);
+            
+            document.getElementById('processo-cliente-codigo').value = '';
+            document.getElementById('cliente-processo-info').value = '';
+            document.getElementById('processo-numero').value = '';
+            document.getElementById('processo-tipo').value = '';
+            document.getElementById('processo-local').value = '';
+            document.getElementById('processo-valor').value = '';
+            document.getElementById('processo-resumo').value = '';
+            
+            atualizarListaProcessosDireita();
+        }
+
+        function limparFormularioProcesso() {
+            document.getElementById('processo-cliente-codigo').value = '';
+            document.getElementById('cliente-processo-info').value = '';
+            document.getElementById('processo-numero').value = '';
+            document.getElementById('processo-tipo').value = '';
+            document.getElementById('processo-local').value = '';
+            document.getElementById('processo-valor').value = '';
+            document.getElementById('processo-resumo').value = '';
+        }
+
+        // ========== FUNÇÃO CORRIGIDA: EXCLUIR PROCESSO ==========
+        function excluirProcesso(id) {
+            const processo = DB.processos.find(p => p.id === id);
+            if (!processo) return;
+            
+            if (confirm(`⚠️ Tem certeza que deseja excluir o processo ${processo.numero}?\n\nIsso também excluirá todos os andamentos relacionados.\n\nEsta ação não pode ser desfeita.`)) {
+                DB.processos = DB.processos.filter(p => p.id !== id);
+                DB.andamentos = DB.andamentos.filter(a => a.processoId !== id);
+                DB.salvar();
+                
+                alert(`Processo ${processo.numero} excluído com sucesso!`);
+                
+                if (document.getElementById('processos')?.classList.contains('active')) {
+                    atualizarListaProcessosDireita();
+                }
+                if (document.getElementById('andamento')?.classList.contains('active')) {
+                    atualizarListaAndamentosDireita();
+                }
+                atualizarEstatisticas();
+            }
+        }
+
+        // ========== FUNÇÃO CORRIGIDA: ATUALIZAR LISTA DE PROCESSOS ==========
+        function atualizarListaProcessosDireita() {
+            const container = document.getElementById('lista-processos-direita');
+            if (!container) return;
+
+            if (DB.processos.length === 0) {
+                container.innerHTML = '<div class="alert alert-danger">Nenhum processo cadastrado ainda.</div>';
+                return;
+            }
+
+            const processosOrdenados = [...DB.processos].sort((a, b) => {
+                return new Date(b.dataCadastro) - new Date(a.dataCadastro);
+            });
+
+            let html = '';
+            processosOrdenados.forEach(processo => {
+                html += `
+                    <div class="cadastro-item">
+                        <div class="cadastro-header">
+                            <span class="cliente-codigo">${processo.tipo}</span>
+                            <strong>${processo.numero}</strong>
+                        </div>
+                        <div class="detalhes">
+                            <div>👤 ${processo.clienteNome}</div>
+                            <div>⚖️ ${processo.local || 'Não informada'}</div>
+                            <div>📅 ${processo.data}</div>
+                            <div>💰 R$ ${processo.valor.toFixed(2)}</div>
+                            <div>📝 ${processo.status}</div>
+                            <div class="cadastro-acoes">
+                                <button class="btn-small" onclick="verDetalhesProcesso('${processo.id}')">👁️ Ver</button>
+                                <button class="btn-small btn-danger" onclick="excluirProcesso('${processo.id}')">🗑️ Excluir</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ========== FUNÇÕES DE ANDAMENTOS ==========
+        function buscarClienteParaAndamento() {
+            const termo = document.getElementById('buscar-cliente-andamento').value;
+            const cliente = DB.clientes.find(c => 
+                c.codigo === termo || c.cpf.replace(/\D/g, '') === termo.replace(/\D/g, '')
+            );
+            
+            if (cliente) {
+                document.getElementById('cliente-selecionado').value = `${cliente.codigo} - ${cliente.nome}`;
+                carregarProcessosDoCliente(cliente.codigo);
+                alert(`Cliente ${cliente.codigo} encontrado!`);
+            } else {
+                document.getElementById('cliente-selecionado').value = '';
+                alert('Cliente não encontrado!');
+            }
+        }
+
+        function carregarProcessosDoCliente(clienteCodigo) {
+            const select = document.getElementById('andamento-processo');
+            select.innerHTML = '<option value="">Selecione um processo</option>';
+            
+            const processosCliente = DB.processos.filter(p => p.clienteCodigo === clienteCodigo);
+            
+            if (processosCliente.length === 0) {
+                select.innerHTML += '<option value="" disabled>Este cliente não possui processos</option>';
+                return;
+            }
+            
+            processosCliente.forEach(processo => {
+                const option = document.createElement('option');
+                option.value = processo.id;
+                option.textContent = `${processo.numero} - ${processo.tipo}`;
+                select.appendChild(option);
+            });
+        }
+
+        function adicionarAndamento() {
+            const processoId = document.getElementById('andamento-processo').value;
+            const descricao = document.getElementById('novo-andamento').value;
+
+            if (!processoId || !descricao) {
+                alert('Selecione um processo e descreva o andamento!');
+                return;
+            }
+
+            const processo = DB.processos.find(p => p.id === processoId);
+            if (!processo) {
+                alert('Processo não encontrado!');
+                return;
+            }
+
+            const andamento = {
+                id: Date.now().toString(),
+                processoId: processoId,
+                processoNumero: processo.numero,
+                clienteNome: processo.clienteNome,
+                clienteCodigo: processo.clienteCodigo,
+                data: document.getElementById('andamento-data').value || new Date().toISOString().split('T')[0],
+                tipo: document.getElementById('andamento-tipo').value || 'Outros',
+                descricao: descricao,
+                dataRegistro: new Date().toLocaleString('pt-BR')
+            };
+
+            DB.andamentos.push(andamento);
+            DB.salvar();
+
+            alert(`Andamento adicionado para o processo ${processo.numero}!`);
+            document.getElementById('novo-andamento').value = '';
+            atualizarListaAndamentosDireita();
+        }
+
+        function limparFormularioAndamento() {
+            document.getElementById('buscar-cliente-andamento').value = '';
+            document.getElementById('cliente-selecionado').value = '';
+            document.getElementById('andamento-processo').innerHTML = '<option value="">Selecione um processo</option>';
+            document.getElementById('novo-andamento').value = '';
+        }
+
+        function atualizarListaAndamentosDireita() {
+            const container = document.getElementById('lista-andamentos-direita');
+            if (!container) return;
+
+            if (DB.andamentos.length === 0) {
+                container.innerHTML = '<div class="alert alert-danger">Nenhum andamento cadastrado ainda.</div>';
+                return;
+            }
+
+            const andamentosOrdenados = [...DB.andamentos].sort((a, b) => {
+                return new Date(b.dataRegistro) - new Date(a.dataRegistro);
+            });
+
+            let html = '';
+            andamentosOrdenados.forEach(andamento => {
+                html += `
+                    <div class="cadastro-item">
+                        <div class="cadastro-header">
+                            <span class="cliente-codigo">${andamento.tipo}</span>
+                            <strong>${andamento.processoNumero}</strong>
+                        </div>
+                        <div class="detalhes">
+                            <div>👤 ${andamento.clienteNome}</div>
+                            <div>📅 ${andamento.data}</div>
+                            <div>📝 ${andamento.descricao.substring(0, 100)}...</div>
+                            <div class="cadastro-acoes">
+                                <button class="btn-small" onclick="verDetalhesAndamento('${andamento.id}')">👁️ Ver</button>
+                                <button class="btn-small btn-danger" onclick="excluirAndamento('${andamento.id}')">🗑️ Excluir</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function excluirAndamento(id) {
+            if (confirm('⚠️ Tem certeza que deseja excluir este andamento?\n\nEsta ação não pode ser desfeita.')) {
+                DB.andamentos = DB.andamentos.filter(andamento => andamento.id !== id);
+                DB.salvar();
+                alert('Andamento excluído com sucesso!');
+                atualizarListaAndamentosDireita();
+            }
+        }
+
+        // ========== FUNÇÕES DE CONSULTAS ==========
+        function consultarClientes() {
+            const termo = document.getElementById('consulta-cliente').value.toLowerCase();
+            const resultados = DB.clientes.filter(cliente => 
+                cliente.codigo.toLowerCase().includes(termo) ||
+                cliente.nome.toLowerCase().includes(termo) ||
+                cliente.cpf.toLowerCase().includes(termo)
+            );
+            
+            exibirResultadosConsulta(resultados, 'clientes');
+        }
+
+        function listarTodosClientes() {
+            exibirResultadosConsulta(DB.clientes, 'clientes');
+        }
+
+        function consultarProcessos() {
+            const termo = document.getElementById('consulta-processo').value.toLowerCase();
+            const resultados = DB.processos.filter(processo => 
+                processo.numero.toLowerCase().includes(termo) ||
+                processo.tipo.toLowerCase().includes(termo) ||
+                processo.clienteCodigo.toLowerCase().includes(termo)
+            );
+            
+            exibirResultadosConsulta(resultados, 'processos');
+        }
+
+        function listarTodosProcessos() {
+            exibirResultadosConsulta(DB.processos, 'processos');
+        }
+
+        function exibirResultadosConsulta(dados, tipo) {
+            const container = document.getElementById('resultados-consulta');
+            
+            if (dados.length === 0) {
+                container.innerHTML = '<div class="alert alert-danger">Nenhum resultado encontrado.</div>';
+                return;
+            }
+            
+            if (tipo === 'clientes') {
+                container.innerHTML = `
+                    <h4>📋 Resultados da Consulta (${dados.length} clientes)</h4>
+                    ${dados.map(cliente => `
+                        <div class="data-item">
+                            <div class="cliente-header">
+                                <span class="cliente-codigo">${cliente.codigo}</span>
+                                <span>${cliente.nome}</span>
+                            </div>
+                            <div>
+                                <strong>CPF:</strong> ${cliente.cpf || 'Não informado'} | 
+                                <strong>Telefone:</strong> ${cliente.telefone || 'Não informado'} |
+                                <strong>Email:</strong> ${cliente.email || 'Não informado'}
+                            </div>
+                            <div><strong>Endereço:</strong> ${cliente.endereco || 'Não informado'}</div>
+                            ${cliente.observacoes ? `<div><strong>Observações:</strong> ${cliente.observacoes}</div>` : ''}
+                        </div>
+                    `).join('')}
+                `;
+            } else if (tipo === 'processos') {
+                container.innerHTML = `
+                    <h4>📁 Resultados da Consulta (${dados.length} processos)</h4>
+                    ${dados.map(processo => {
+                        const cliente = DB.clientes.find(c => c.codigo === processo.clienteCodigo);
+                        const andamentosCount = DB.andamentos.filter(a => a.processoId === processo.id).length;
+                        return `
+                            <div class="data-item">
+                                <div class="cliente-header">
+                                    <span class="cliente-codigo">${processo.numero}</span>
+                                    <span>${processo.tipo}</span>
+                                </div>
+                                <div>
+                                    <strong>Cliente:</strong> ${cliente ? `${cliente.codigo} - ${cliente.nome}` : 'Não encontrado'} | 
+                                    <strong>Local:</strong> ${processo.local || 'Não informado'} |
+                                    <strong>Data:</strong> ${processo.data || 'Não informada'}
+                                </div>
+                                <div><strong>Resumo:</strong> ${processo.resumo}</div>
+                                <div><strong>Andamentos:</strong> ${andamentosCount} registro(s)</div>
+                                <div class="cadastro-acoes">
+                                    <button class="btn-small btn-danger" onclick="excluirProcesso('${processo.id}')">🗑️ Excluir Processo</button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                `;
+            }
+        }
+
+        function consultarAndamentoProcessual() {
+            const container = document.getElementById('resultados-consulta');
+            const andamentosComCliente = DB.andamentos.map(andamento => {
+                const cliente = DB.clientes.find(c => c.codigo === andamento.clienteCodigo);
+                return {
+                    ...andamento,
+                    clienteNome: cliente ? cliente.nome : 'Cliente não encontrado'
+                };
+            });
+            
+            if (andamentosComCliente.length === 0) {
+                container.innerHTML = '<div class="alert alert-danger">Nenhum andamento cadastrado.</div>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <h4>📈 Andamento Processual (${andamentosComCliente.length} registros)</h4>
+                ${andamentosComCliente.map(andamento => `
+                    <div class="data-item">
+                        <div class="cliente-header">
+                            <span class="cliente-codigo">${andamento.clienteCodigo}</span>
+                            <span>${andamento.clienteNome}</span>
+                        </div>
+                        <div><strong>Data:</strong> ${new Date(andamento.data).toLocaleString()}</div>
+                        <div><strong>Andamento:</strong> ${andamento.descricao}</div>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        // ========== FUNÇÕES DE RELATÓRIOS ==========
+        function atualizarRelatorios() {
+            const clientesAtivos = DB.clientes.filter(c => c.status === 'Ativo').length;
+            const processosAtivos = DB.processos.filter(p => p.status === 'Ativo').length;
+            
+            document.getElementById('rel-clientes-ativos').textContent = clientesAtivos;
+            document.getElementById('rel-processos-ativos').textContent = processosAtivos;
+        }
+
+        function gerarRelatorioClientesAlfabetico() {
+            const clientesOrdenados = [...DB.clientes].sort((a, b) => a.nome.localeCompare(b.nome));
+            exibirRelatorio(clientesOrdenados, 'clientes-alfabetico');
+        }
+
+        function gerarRelatorioClientesProcesso() {
+            const clientesComProcessos = DB.clientes.map(cliente => {
+                const processos = DB.processos.filter(p => p.clienteCodigo === cliente.codigo);
+                return {
+                    ...cliente,
+                    quantidadeProcessos: processos.length
+                };
+            }).filter(cliente => cliente.quantidadeProcessos > 0)
+              .sort((a, b) => b.quantidadeProcessos - a.quantidadeProcessos);
+            
+            exibirRelatorio(clientesComProcessos, 'clientes-processo');
+        }
+
+        function gerarRelatorioClienteEspecifico() {
+            const busca = document.getElementById('relatorio-cliente-especifico').value;
+            const cliente = DB.clientes.find(c => 
+                c.codigo === busca || c.cpf.replace(/\D/g, '') === busca.replace(/\D/g, '')
+            );
+            
+            if (!cliente) {
+                alert('Cliente não encontrado!');
+                return;
+            }
+            
+            const processos = DB.processos.filter(p => p.clienteCodigo === cliente.codigo);
+            const andamentos = DB.andamentos.filter(a => a.clienteCodigo === cliente.codigo);
+            
+            const relatorio = {
+                cliente: cliente,
+                processos: processos,
+                andamentos: andamentos
+            };
+            
+            exibirRelatorio(relatorio, 'cliente-especifico');
+        }
+
+        function gerarRelatorioProcessosDetalhado() {
+            const processosComCliente = DB.processos.map(processo => {
+                const cliente = DB.clientes.find(c => c.codigo === processo.clienteCodigo);
+                return {
+                    ...processo,
+                    clienteNome: cliente ? cliente.nome : 'Cliente não encontrado'
+                };
+            });
+            
+            exibirRelatorio(processosComCliente, 'processos-detalhados');
+        }
+
+        function gerarRelatorioAndamentoGeral() {
+            const andamentosComCliente = DB.andamentos.map(andamento => {
+                const cliente = DB.clientes.find(c => c.codigo === andamento.clienteCodigo);
+                return {
+                    ...andamento,
+                    clienteNome: cliente ? cliente.nome : 'Cliente não encontrado'
+                };
+            });
+            
+            exibirRelatorio(andamentosComCliente, 'andamento-geral');
+        }
+
+        function exibirRelatorio(dados, tipo) {
+            const container = document.getElementById('relatorio-conteudo');
+            let html = '<div class="card"><h4>📊 Relatório Gerado</h4>';
+            
+            switch(tipo) {
+                case 'processos-detalhados':
+                    html += `
+                        <h5>📁 Processos Detalhados (${dados.length})</h5>
+                        ${dados.map(processo => {
+                            const andamentosCount = DB.andamentos.filter(a => a.processoId === processo.id).length;
+                            return `
+                                <div class="data-item">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <strong>${processo.numero} - ${processo.tipo}</strong><br>
+                                            <strong>Cliente:</strong> ${processo.clienteNome} (${processo.clienteCodigo})<br>
+                                        </div>
+                                        <div>
+                                            <button class="btn-small btn-danger" onclick="excluirProcesso('${processo.id}')">🗑️ Excluir</button>
+                                        </div>
+                                    </div>
+                                    <div><strong>Local:</strong> ${processo.local || 'Não informado'}</div>
+                                    <div><strong>Data:</strong> ${processo.data || 'Não informada'}</div>
+                                    <div><strong>Valor:</strong> R$ ${processo.valor.toFixed(2)}</div>
+                                    <div><strong>Status:</strong> ${processo.status}</div>
+                                    <div><strong>Andamentos:</strong> ${andamentosCount} registro(s)</div>
+                                    <div><strong>Resumo:</strong> ${processo.resumo || 'Sem descrição'}</div>
+                                </div>
+                            `;
+                        }).join('')}
+                    `;
+                    break;
+                    
+                case 'clientes-alfabetico':
+                    html += `
+                        <h5>👤 Clientes em Ordem Alfabética (${dados.length})</h5>
+                        ${dados.map(cliente => `
+                            <div class="data-item">
+                                <strong>${cliente.codigo} - ${cliente.nome}</strong><br>
+                                CPF: ${cliente.cpf || 'Não informado'} | Telefone: ${cliente.telefone || 'Não informado'}<br>
+                                Email: ${cliente.email || 'Não informado'} | Endereço: ${cliente.endereco || 'Não informado'}
+                            </div>
+                        `).join('')}
+                    `;
+                    break;
+                    
+                case 'clientes-processo':
+                    html += `
+                        <h5>⚖️ Clientes por Quantidade de Processos (${dados.length})</h5>
+                        ${dados.map(cliente => `
+                            <div class="data-item">
+                                <strong>${cliente.codigo} - ${cliente.nome}</strong><br>
+                                Processos: ${cliente.quantidadeProcessos}<br>
+                                CPF: ${cliente.cpf || 'Não informado'} | Telefone: ${cliente.telefone || 'Não informado'}
+                            </div>
+                        `).join('')}
+                    `;
+                    break;
+                    
+                case 'cliente-especifico':
+                    const { cliente, processos, andamentos } = dados;
+                    html += `
+                        <h5>📋 Relatório do Cliente ${cliente.codigo} - ${cliente.nome}</h5>
+                        <div class="data-item">
+                            <h6>📝 Dados Pessoais</h6>
+                            <strong>CPF:</strong> ${cliente.cpf || 'Não informado'}<br>
+                            <strong>RG:</strong> ${cliente.rg || 'Não informado'}<br>
+                            <strong>Sexo:</strong> ${cliente.sexo || 'Não informado'}<br>
+                            <strong>Telefone:</strong> ${cliente.telefone || 'Não informado'}<br>
+                            <strong>Email:</strong> ${cliente.email || 'Não informado'}<br>
+                            <strong>Endereço:</strong> ${cliente.endereco || 'Não informado'}<br>
+                            <strong>Observações:</strong> ${cliente.observacoes || 'Nenhuma'}
+                        </div>
+                        
+                        <div class="data-item">
+                            <h6>📁 Processos (${processos.length})</h6>
+                            ${processos.length > 0 ? processos.map(processo => `
+                                <div style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <strong>${processo.numero} - ${processo.tipo}</strong><br>
+                                            <strong>Local:</strong> ${processo.local || 'Não informado'}<br>
+                                            <strong>Data:</strong> ${processo.data || 'Não informada'}<br>
+                                            <strong>Resumo:</strong> ${processo.resumo || 'Sem descrição'}
+                                        </div>
+                                        <div>
+                                            <button class="btn-small btn-danger" onclick="excluirProcesso('${processo.id}')">🗑️ Excluir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('') : 'Nenhum processo cadastrado.'}
+                        </div>
+                        
+                        <div class="data-item">
+                            <h6>📈 Andamentos (${andamentos.length})</h6>
+                            ${andamentos.length > 0 ? andamentos.map(andamento => `
+                                <div style="margin: 10px 0; padding: 10px; background: #e3f2fd; border-radius: 5px;">
+                                    <strong>${new Date(andamento.data).toLocaleString()}</strong><br>
+                                    ${andamento.descricao}
+                                </div>
+                            `).join('') : 'Nenhum andamento cadastrado.'}
+                        </div>
+                    `;
+                    break;
+                    
+                case 'andamento-geral':
+                    html += `
+                        <h5>📈 Andamento Geral (${dados.length})</h5>
+                        ${dados.map(andamento => `
+                            <div class="data-item">
+                                <strong>${andamento.clienteCodigo} - ${andamento.clienteNome}</strong><br>
+                                <strong>Data:</strong> ${new Date(andamento.data).toLocaleString()}<br>
+                                <strong>Andamento:</strong> ${andamento.descricao}
+                            </div>
+                        `).join('')}
+                    `;
+                    break;
+            }
+            
+            html += '<button class="print-btn" onclick="window.print()">🖨️ Imprimir Relatório</button></div>';
+            container.innerHTML = html;
+        }
+
+        // ========== FUNÇÕES DE TESES ==========
+        function carregarTeses() {
+            ['inicial', 'impugnacao', 'recurso'].forEach(tipo => {
+                const select = document.getElementById(`tese-${tipo}`);
+                if (select) {
+                    select.innerHTML = '<option value="">Selecione uma tese</option>' +
+                        Object.keys(DB.teses[tipo] || {}).map(nome => 
+                            `<option value="${nome}">${nome}</option>`
+                        ).join('');
+                }
+            });
+        }
+
+        function mostrarFormularioTese(tipo) {
+            const select = document.getElementById(`tese-${tipo}`);
+            const formulario = document.getElementById(`formulario-tese-${tipo}`);
+            const textarea = document.getElementById(`conteudo-tese-${tipo}`);
+            
+            if (select.value) {
+                formulario.style.display = 'block';
+                textarea.value = DB.teses[tipo][select.value] || '';
+            } else {
+                formulario.style.display = 'none';
+            }
+        }
+
+        function salvarTese(tipo) {
+            const select = document.getElementById(`tese-${tipo}`);
+            const textarea = document.getElementById(`conteudo-tese-${tipo}`);
+            
+            if (!select.value) {
+                alert('Selecione uma tese para salvar');
+                return;
+            }
+            
+            if (!DB.teses[tipo]) DB.teses[tipo] = {};
+            DB.teses[tipo][select.value] = textarea.value;
+            DB.salvar();
+            
+            alert(`Tese "${select.value}" salva com sucesso!`);
+        }
+
+        function editarTese(tipo) {
+            const select = document.getElementById(`tese-${tipo}`);
+            const textarea = document.getElementById(`conteudo-tese-${tipo}`);
+            
+            if (!select.value) {
+                alert('Selecione uma tese para editar');
+                return;
+            }
+            
+            textarea.value = DB.teses[tipo][select.value] || '';
+            textarea.focus();
+        }
+
+        function excluirTese(tipo) {
+            const select = document.getElementById(`tese-${tipo}`);
+            
+            if (!select.value) {
+                alert('Selecione uma tese para excluir');
+                return;
+            }
+            
+            if (confirm(`Tem certeza que deseja excluir a tese "${select.value}"?`)) {
+                delete DB.teses[tipo][select.value];
+                DB.salvar();
+                carregarTeses();
+                document.getElementById(`formulario-tese-${tipo}`).style.display = 'none';
+                alert(`Tese "${select.value}" excluída com sucesso!`);
+            }
+        }
+
+        function criarNovaTese() {
+            const nome = document.getElementById('nova-tese-nome').value;
+            const tipo = document.getElementById('nova-tese-tipo').value;
+            
+            if (!nome) {
+                alert('Digite o nome da nova tese');
+                return;
+            }
+            
+            if (!DB.teses[tipo]) DB.teses[tipo] = {};
+            
+            if (DB.teses[tipo][nome]) {
+                alert('Já existe uma tese com este nome');
+                return;
+            }
+            
+            DB.teses[tipo][nome] = '';
+            DB.salvar();
+            carregarTeses();
+            
+            document.getElementById(`tese-${tipo}`).value = nome;
+            mostrarFormularioTese(tipo);
+            
+            document.getElementById('nova-tese-nome').value = '';
+            alert(`Nova tese "${nome}" criada com sucesso!`);
+        }
+
+        function carregarTesesDireita() {
+            carregarTeses();
+        }
+
+        function carregarTesesParaConsulta() {
+            const tipo = document.getElementById('tipo-tese-consulta').value;
+            const select = document.getElementById('tese-consulta');
+            
+            select.innerHTML = '<option value="">Selecione uma tese</option>';
+            
+            if (tipo && DB.teses[tipo]) {
+                Object.keys(DB.teses[tipo]).forEach(nome => {
+                    select.innerHTML += `<option value="${nome}">${nome}</option>`;
+                });
+            }
+        }
+
+        function mostrarTeseSelecionada() {
+            const tipo = document.getElementById('tipo-tese-consulta').value;
+            const nome = document.getElementById('tese-consulta').value;
+            const container = document.getElementById('tese-exibicao');
+            
+            if (tipo && nome && DB.teses[tipo] && DB.teses[tipo][nome]) {
+                document.getElementById('titulo-tese').textContent = nome;
+                document.getElementById('conteudo-tese-consulta').textContent = DB.teses[tipo][nome];
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        function copiarTeseConsulta() {
+            const conteudo = document.getElementById('conteudo-tese-consulta').textContent;
+            navigator.clipboard.writeText(conteudo).then(() => {
+                alert('Tese copiada para a área de transferência!');
+            });
+        }
+
+        function imprimirTese() {
+            window.print();
+        }
+
+        // ========== FUNÇÕES DE DÚVIDAS ==========
+        function carregarDuvidas() {
+            const container = document.getElementById('lista-duvidas');
+            if (!container) return;
+            
+            if (DB.duvidas.length === 0) {
+                container.innerHTML = '<div class="alert alert-info">Nenhuma dúvida cadastrada ainda.</div>';
+                return;
+            }
+            
+            container.innerHTML = DB.duvidas.map((duvida, index) => `
+                <div class="lista-duvidas-item" onclick="toggleDuvida(${index})">
+                    <div class="lista-duvidas-header">
+                        <div>
+                            <div class="duvida-resumo">${duvida.resumo}</div>
+                            <div class="duvida-info">
+                                <span>Por: ${duvida.nome} (${duvida.cidade})</span>
+                                <span>${new Date(duvida.data).toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="duvida-area">${duvida.area}</span>
+                            <button class="btn-excluir-duvida" onclick="event.stopPropagation(); excluirDuvida(${index})">Excluir</button>
+                        </div>
+                    </div>
+                    <div class="duvida-expandida" id="duvida-expandida-${index}">
+                        <div><strong>Descrição completa:</strong> ${duvida.descricao}</div>
+                        ${duvida.respostas && duvida.respostas.length > 0 ? `
+                            <div style="margin-top: 15px;">
+                                <strong>Respostas (${duvida.respostas.length}):</strong>
+                                ${duvida.respostas.map(resposta => `
+                                    <div class="resposta-item">
+                                        <strong>${resposta.autor} (${new Date(resposta.data).toLocaleString()}):</strong><br>
+                                        ${resposta.conteudo}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : '<div style="margin-top: 10px; color: #6c757d;">Nenhuma resposta ainda.</div>'}
+                        <div class="form-resposta">
+                            <div class="form-group">
+                                <label>Sua Resposta:</label>
+                                <textarea id="resposta-${index}" rows="3" placeholder="Digite sua resposta aqui..."></textarea>
+                            </div>
+                            <button class="btn btn-small" onclick="enviarResposta(${index})">📤 Enviar Resposta</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleDuvida(index) {
+            const expandida = document.getElementById(`duvida-expandida-${index}`);
+            expandida.classList.toggle('ativa');
+        }
+
+        function enviarDuvida() {
+            const nome = document.getElementById('duvida-nome').value;
+            const cidade = document.getElementById('duvida-cidade').value;
+            const area = document.getElementById('duvida-area').value;
+            const resumo = document.getElementById('duvida-resumo').value;
+            const descricao = document.getElementById('duvida-descricao').value;
+            
+            if (!nome || !cidade || !area || !resumo || !descricao) {
+                alert('Por favor, preencha todos os campos');
+                return;
+            }
+            
+            if (resumo.length > 200) {
+                alert('O resumo deve ter no máximo 200 caracteres');
+                return;
+            }
+            
+            const duvida = {
+                id: Date.now().toString(),
+                nome: nome,
+                cidade: cidade,
+                area: area,
+                resumo: resumo,
+                descricao: descricao,
+                data: new Date().toISOString(),
+                respostas: []
+            };
+            
+            DB.duvidas.unshift(duvida);
+            DB.salvar();
+            
+            alert('Dúvida enviada com sucesso!');
+            
+            document.getElementById('duvida-nome').value = '';
+            document.getElementById('duvida-cidade').value = '';
+            document.getElementById('duvida-area').value = '';
+            document.getElementById('duvida-resumo').value = '';
+            document.getElementById('duvida-descricao').value = '';
+            document.getElementById('contador-resumo').textContent = '0/200 caracteres';
+        }
+
+        function enviarResposta(index) {
+            const respostaTexto = document.getElementById(`resposta-${index}`).value;
+            
+            if (!respostaTexto) {
+                alert('Por favor, digite uma resposta');
+                return;
+            }
+            
+            if (!DB.duvidas[index].respostas) {
+                DB.duvidas[index].respostas = [];
+            }
+            
+            DB.duvidas[index].respostas.push({
+                autor: 'Advogado',
+                conteudo: respostaTexto,
+                data: new Date().toISOString()
+            });
+            
+            DB.salvar();
+            alert('Resposta enviada com sucesso!');
+            document.getElementById(`resposta-${index}`).value = '';
+            
+            carregarDuvidas();
+            document.getElementById(`duvida-expandida-${index}`).classList.add('ativa');
+        }
+
+        function excluirDuvida(index) {
+            if (confirm('Tem certeza que deseja excluir esta dúvida?')) {
+                DB.duvidas.splice(index, 1);
+                DB.salvar();
+                alert('Dúvida excluída com sucesso!');
+                carregarDuvidas();
+            }
+        }
+
+        function filtrarDuvidas(area) {
+            document.querySelectorAll('.filtro-btn').forEach(btn => {
+                btn.classList.remove('ativo');
+            });
+            event.target.classList.add('ativo');
+            
+            if (area === 'todas') {
+                carregarDuvidas();
+                return;
+            }
+            
+            const duvidasFiltradas = DB.duvidas.filter(duvida => duvida.area === area);
+            const container = document.getElementById('lista-duvidas');
+            
+            if (duvidasFiltradas.length === 0) {
+                container.innerHTML = `<div class="alert alert-info">Nenhuma dúvida na área ${area}.</div>`;
+                return;
+            }
+            
+            container.innerHTML = duvidasFiltradas.map((duvida, index) => {
+                const originalIndex = DB.duvidas.findIndex(d => d.id === duvida.id);
+                return `
+                    <div class="lista-duvidas-item" onclick="toggleDuvida(${originalIndex})">
+                        <div class="lista-duvidas-header">
+                            <div>
+                                <div class="duvida-resumo">${duvida.resumo}</div>
+                                <div class="duvida-info">
+                                    <span>Por: ${duvida.nome} (${duvida.cidade})</span>
+                                    <span>${new Date(duvida.data).toLocaleString()}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="duvida-area">${duvida.area}</span>
+                                <button class="btn-excluir-duvida" onclick="event.stopPropagation(); excluirDuvida(${originalIndex})">Excluir</button>
+                            </div>
+                        </div>
+                        <div class="duvida-expandida" id="duvida-expandida-${originalIndex}">
+                            <div><strong>Descrição completa:</strong> ${duvida.descricao}</div>
+                            ${duvida.respostas && duvida.respostas.length > 0 ? `
+                                <div style="margin-top: 15px;">
+                                    <strong>Respostas (${duvida.respostas.length}):</strong>
+                                    ${duvida.respostas.map(resposta => `
+                                        <div class="resposta-item">
+                                            <strong>${resposta.autor} (${new Date(resposta.data).toLocaleString()}):</strong><br>
+                                            ${resposta.conteudo}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : '<div style="margin-top: 10px; color: #6c757d;">Nenhuma resposta ainda.</div>'}
+                            <div class="form-resposta">
+                                <div class="form-group">
+                                    <label>Sua Resposta:</label>
+                                    <textarea id="resposta-${originalIndex}" rows="3" placeholder="Digite sua resposta aqui..."></textarea>
+                                </div>
+                                <button class="btn btn-small" onclick="enviarResposta(${originalIndex})">📤 Enviar Resposta</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function atualizarContadorResumo() {
+            const resumo = document.getElementById('duvida-resumo');
+            const contador = document.getElementById('contador-resumo');
+            contador.textContent = `${resumo.value.length}/200 caracteres`;
+        }
+
+        // ========== FUNÇÕES DE BACKUP ==========
+        function exportBackupClientes() {
+            const backup = {
+                clientes: DB.clientes,
+                processos: DB.processos,
+                andamentos: DB.andamentos,
+                dataBackup: new Date().toISOString(),
+                versao: '1.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup-clientes-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('Backup de clientes exportado com sucesso!');
+        }
+
+        function importBackupClientes() {
+            document.getElementById('backup-file-clientes').click();
+        }
+
+        function exportBackupTeses() {
+            const backup = {
+                teses: DB.teses,
+                dataBackup: new Date().toISOString(),
+                versao: '1.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup-teses-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('Backup de teses exportado com sucesso!');
+        }
+
+        function importBackupTeses() {
+            document.getElementById('backup-file-teses').click();
+        }
+
+        function processarBackup(event, tipo) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const backup = JSON.parse(e.target.result);
+                    
+                    if (confirm(`⚠️ Isso substituirá todos os dados ${tipo === 'clientes' ? 'de clientes e processos' : 'de teses'} atuais. Continuar?`)) {
+                        if (tipo === 'clientes') {
+                            DB.clientes = backup.clientes || [];
+                            DB.processos = backup.processos || [];
+                            DB.andamentos = backup.andamentos || [];
+                            alert('Backup de clientes importado com sucesso!');
+                        } else if (tipo === 'teses') {
+                            DB.teses = backup.teses || { inicial: {}, impugnacao: {}, recurso: {} };
+                            alert('Backup de teses importado com sucesso!');
+                        }
+                        
+                        DB.salvar();
+                        event.target.value = '';
+                    }
+                } catch (error) {
+                    alert('Erro ao importar backup. Arquivo inválido.');
+                    console.error('Erro ao importar backup:', error);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // ========== FUNÇÕES DO SISTEMA ==========
+        function atualizarEstatisticas() {
+            const statsContainer = document.getElementById('stats-container');
+            const processosContainer = document.getElementById('processos-container');
+            
+            if (statsContainer) {
+                statsContainer.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-number">${DB.clientes.length}</div>
+                        <p>Clientes Cadastrados</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${DB.processos.length}</div>
+                        <p>Total de Processos</p>
+                    </div>
+                `;
+            }
+            
+            if (processosContainer) {
+                const areas = ['Trabalhista', 'Cível', 'Consumidor', 'Previdenciário', 'Família', 'Criminal', 'Outros'];
+                processosContainer.innerHTML = areas.map(area => {
+                    const count = DB.processos.filter(p => p.tipo === area).length;
+                    return `
+                        <div class="processo-card">
+                            <div class="processo-number">${count}</div>
+                            <p>${area}</p>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        function verDetalhesProcesso(id) {
+            const processo = DB.processos.find(p => p.id === id);
+            if (!processo) return;
+
+            const andamentos = DB.andamentos.filter(a => a.processoId === id);
+            
+            let html = `
+                <div class="card">
+                    <h3>📋 Detalhes do Processo</h3>
+                    <div class="data-item">
+                        <strong>Número: ${processo.numero}</strong><br>
+                        <strong>Cliente: ${processo.clienteNome}</strong><br>
+                        Tipo: ${processo.tipo}<br>
+                        Local: ${processo.local || 'Não informado'}<br>
+                        Data: ${processo.data}<br>
+                        Valor: R$ ${processo.valor.toFixed(2)}<br>
+                        Status: ${processo.status}<br>
+                        Resumo: ${processo.resumo || 'Sem descrição'}
+                    </div>
+                    
+                    <h4 style="margin-top: 20px;">📝 Andamentos</h4>
+            `;
+
+            if (andamentos.length > 0) {
+                andamentos.forEach(andamento => {
+                    html += `
+                        <div class="data-item">
+                            <div style="display: flex; justify-content: space-between;">
+                                <strong>${andamento.tipo}</strong>
+                                <small>${andamento.data}</small>
+                            </div>
+                            <div>${andamento.descricao}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                html += '<div class="data-item">Nenhum andamento registrado.</div>';
+            }
+
+            html += `
+                    <div style="margin-top: 20px;">
+                        <div class="btn-row">
+                            <button class="btn btn-danger" onclick="excluirProcesso('${processo.id}')">🗑️ Excluir Processo</button>
+                            <button class="btn" onclick="showTab('processos')">← Voltar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('lista-processos-direita').innerHTML = html;
+        }
+
+        function verDetalhesAndamento(id) {
+            const andamento = DB.andamentos.find(a => a.id === id);
+            if (!andamento) return;
+
+            alert(`📝 Detalhes do Andamento\n\nProcesso: ${andamento.processoNumero}\nCliente: ${andamento.clienteNome}\nTipo: ${andamento.tipo}\nData: ${andamento.data}\n\nDescrição:\n${andamento.descricao}`);
+        }
+
+        function executarAutoReparo() {
+            if (confirm('🛠️ Executar sistema de auto-reparo?\n\nIsso irá verificar e corrigir possíveis problemas no banco de dados.')) {
+                let reparos = 0;
+                
+                DB.clientes = DB.clientes.filter(cliente => 
+                    cliente && cliente.codigo && cliente.nome
+                );
+                
+                DB.processos = DB.processos.filter(processo => 
+                    processo && processo.id && processo.numero && processo.tipo
+                );
+                
+                DB.andamentos = DB.andamentos.filter(andamento => 
+                    andamento && andamento.id && andamento.descricao
+                );
+                
+                if (!DB.teses) DB.teses = { inicial: {}, impugnacao: {}, recurso: {} };
+                if (!DB.teses.inicial) DB.teses.inicial = {};
+                if (!DB.teses.impugnacao) DB.teses.impugnacao = {};
+                if (!DB.teses.recurso) DB.teses.recurso = {};
+                
+                DB.duvidas = DB.duvidas.filter(duvida => 
+                    duvida && duvida.id && duvida.resumo
+                );
+                
+                DB.salvar();
+                alert(`Sistema verificado e reparado com sucesso! ${reparos} reparos realizados.`);
+            }
+        }
+
+        function atualizarSistema() {
+            DB.atualizarInterface();
+            alert('Sistema atualizado!');
+        }
+
+        // ========== INICIALIZAÇÃO ==========
+        function inicializarSistema() {
+            const hoje = new Date().toISOString().split('T')[0];
+            if (document.getElementById('processo-data')) {
+                document.getElementById('processo-data').value = hoje;
+            }
+            if (document.getElementById('andamento-data')) {
+                document.getElementById('andamento-data').value = hoje;
+            }
+            
+            if (document.getElementById('inputSenha')) {
+                document.getElementById('inputSenha').addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        verificarSenha();
+                    }
+                });
+            }
+            
+            document.getElementById('backup-file-clientes').addEventListener('change', (event) => processarBackup(event, 'clientes'));
+            document.getElementById('backup-file-teses').addEventListener('change', (event) => processarBackup(event, 'teses'));
+            
+            document.getElementById('propagandaContainer').style.display = 'block';
+            
+            atualizarEstatisticas();
+            
+            console.log('🚀 Sistema Jurídico Completo carregado com sucesso!');
+        }
+
+        // ========== INICIAR SISTEMA ==========
+        document.addEventListener('DOMContentLoaded', verificarRegistro);
+    </script>
+</body>
+</html>
