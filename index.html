@@ -2168,6 +2168,36 @@ Primeiro Acesso: ${new Date().toLocaleString()}
             }
             
             atualizarEstatisticas();
+            
+            // Atualizar propagandas quando mostrar o dashboard
+            if (tabName === 'dashboard') {
+                atualizarPropagandas();
+            }
+        }
+
+        // ========== FUNÇÃO PARA ATUALIZAR PROPAGANDAS ==========
+        function atualizarPropagandas() {
+            // Propaganda 1: Curso Advocacia 5.0
+            document.getElementById('propaganda-conteudo').innerHTML = `
+                <h4 style="color: #2F5496; margin-bottom: 10px;">🎓 Curso Advocacia 5.0</h4>
+                <p style="margin-bottom: 15px; font-size: 14px;">Transforme sua advocacia com técnicas modernas e eficientes.</p>
+                <a href="https://tuliomattos.github.io/advocacia5.0/" target="_blank" style="text-decoration: none;">
+                    <button class="btn-curso">
+                        🚀 Acessar Curso
+                    </button>
+                </a>
+            `;
+            
+            // Propaganda 2: Novas Teses TST
+            document.getElementById('novidades-conteudo').innerHTML = `
+                <h4 style="color: #2F5496; margin-bottom: 10px;">📚 Novas Teses TST</h4>
+                <p style="margin-bottom: 15px; font-size: 14px;">Acesse as mais recentes teses do Tribunal Superior do Trabalho.</p>
+                <a href="https://www.tst.jus.br/documents/d/guest/pleno-virtual-e-presencial-ago-25-total-atualizado-26-8-pdf" target="_blank" style="text-decoration: none;">
+                    <button class="btn-curso" style="background: linear-gradient(135deg, #2F5496, #1e3a8a);">
+                        📄 Ver Teses TST
+                    </button>
+                </a>
+            `;
         }
 
         // ========== FUNÇÕES DE CLIENTES ==========
@@ -3558,6 +3588,7 @@ Primeiro Acesso: ${new Date().toLocaleString()}
             document.getElementById('propagandaContainer').style.display = 'block';
             
             atualizarEstatisticas();
+            atualizarPropagandas(); // Carregar propagandas
             
             // Configurar eventos do modal de tese
             document.getElementById('modalTese')?.addEventListener('click', function(event) {
