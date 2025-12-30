@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidade Jurídica</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a, #2F5496);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 25px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .header h1, .header p { color: white; }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border: 1px solid #eaeaea;
+        }
+        
+        .form-group { margin: 12px 0; }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #2F5496;
+            font-size: 14px;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #2F5496;
+            outline: none;
+        }
+        
+        .btn {
+            background: #2F5496;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            width: 100%;
+            display: block;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-success { background: #28a745; }
+        .btn-secondary { background: #6c757d; }
+        .btn-info { background: #17a2b8; }
+        
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 12px;
+            width: auto;
+            display: inline-block;
+            margin: 2px;
+        }
+        
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .alert-info {
+            background: #e3f2fd;
+            color: #2F5496;
+            border: 1px solid #bbdefb;
+        }
+        
+        .duvida-item {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #2F5496;
+        }
+        
+        .duvida-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .duvida-area {
+            background: #2F5496;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        .duvida-resumo {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .duvida-info {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .duvida-descricao {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+        }
+        
+        .resposta-item {
+            background: #e3f2fd;
+            padding: 15px;
+            margin: 10px 0 10px 20px;
+            border-radius: 8px;
+            border-left: 3px solid #2F5496;
+        }
+        
+        .resposta-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .resposta-conteudo {
+            margin: 8px 0;
+        }
+        
+        .form-resposta {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .contador {
+            font-size: 12px;
+            color: #666;
+            text-align: right;
+            margin-top: 5px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2F5496;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👥 Comunidade Jurídica</h1>
+            <p>Compartilhe dúvidas e ajude outros advogados</p>
+            <a href="index.html" style="color: white; text-decoration: underline; margin-top: 10px; display: inline-block;">⬅ Voltar para o Sistema Principal</a>
+        </div>
+        
+        <div class="card">
+            <h3>📤 Nova Dúvida</h3>
+            
+            <form id="formDuvida" onsubmit="return false;">
+                <div class="form-group">
+                    <label>Seu Nome *</label>
+                    <input type="text" id="duvida-nome" placeholder="Digite seu nome completo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Seu Email (opcional)</label>
+                    <input type="email" id="duvida-email" placeholder="seu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Seu WhatsApp *</label>
+                    <input type="text" id="duvida-whatsapp" placeholder="(11) 99999-9999" 
+                           class="telefone-input" oninput="formatarTelefone(this)" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Sua Cidade/Estado *</label>
+                    <input type="text" id="duvida-cidade" placeholder="Ex: São Paulo/SP" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Área da Dúvida *</label>
+                    <select id="duvida-area" required>
+                        <option value="">Selecione a área</option>
+                        <option value="Trabalhista">Trabalhista</option>
+                        <option value="Cível">Cível</option>
+                        <option value="Previdenciário">Previdenciário</option>
+                        <option value="Criminal">Criminal</option>
+                        <option value="Consumidor">Consumidor</option>
+                        <option value="Família">Família</option>
+                        <option value="Outras">Outras</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Resumo da Dúvida (máx. 200 caracteres) *</label>
+                    <textarea id="duvida-resumo" rows="2" 
+                              placeholder="Digite um resumo breve da sua dúvida (máximo 200 caracteres)" 
+                              maxlength="200" oninput="atualizarContadorResumo()" required></textarea>
+                    <div class="contador" id="contador-resumo">0/200 caracteres</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Descrição Completa da Dúvida *</label>
+                    <textarea id="duvida-descricao" rows="6" 
+                              placeholder="Descreva sua dúvida em detalhes..." required></textarea>
+                </div>
+                
+                <div id="mensagem-duvida" class="alert" style="display: none;"></div>
+                
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-success" onclick="enviarDuvida()">
+                        📤 Enviar Dúvida
+                    </button>
+                    <button class="btn btn-secondary" onclick="limparFormularioDuvida()" style="margin-top: 10px;">
+                        🗑️ Limpar Formulário
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3>📋 Dúvidas da Comunidade</h3>
+                <button class="btn btn-info btn-small" onclick="carregarDuvidas()">
+                    🔄 Atualizar
+                </button>
+            </div>
+            
+            <div id="lista-duvidas" class="loading">
+                <div class="spinner"></div>
+                <p>Carregando dúvidas...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== BANCO DE DADOS LOCAL ==========
+        let DB = {
+            duvidas: JSON.parse(localStorage.getItem('comunidade_duvidas')) || [],
+            respostas: JSON.parse(localStorage.getItem('comunidade_respostas')) || [],
+            
+            salvar: function() {
+                localStorage.setItem('comunidade_duvidas', JSON.stringify(this.duvidas));
+                localStorage.setItem('comunidade_respostas', JSON.stringify(this.respostas));
+            },
+            
+            addDuvida: function(duvida) {
+                duvida.id = 'D' + Date.now() + Math.floor(Math.random() * 1000);
+                duvida.data_envio = new Date().toISOString();
+                this.duvidas.push(duvida);
+                this.salvar();
+                return duvida.id;
+            },
+            
+            addResposta: function(idDuvida, resposta) {
+                resposta.id_duvida = idDuvida;
+                resposta.data_resposta = new Date().toISOString();
+                this.respostas.push(resposta);
+                this.salvar();
+            },
+            
+            getDuvidas: function() {
+                return this.duvidas;
+            },
+            
+            getRespostas: function() {
+                return this.respostas;
+            }
+        };
+        
+        // ========== FUNÇÕES DE FORMATAÇÃO ==========
+        function formatarTelefone(input) {
+            let value = input.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                value = '(' + value;
+            }
+            if (value.length > 3) {
+                value = value.substring(0, 3) + ') ' + value.substring(3);
+            }
+            if (value.length > 10) {
+                value = value.substring(0, 10) + '-' + value.substring(10);
+            }
+            
+            input.value = value.substring(0, 15);
+        }
+        
+        function atualizarContadorResumo() {
+            const resumo = document.getElementById('duvida-resumo');
+            const contador = document.getElementById('contador-resumo');
+            contador.textContent = `${resumo.value.length}/200 caracteres`;
+        }
+        
+        function formatarData(dataISO) {
+            if (!dataISO) return '';
+            const data = new Date(dataISO);
+            if (isNaN(data.getTime())) return dataISO;
+            
+            const dia = data.getDate().toString().padStart(2, '0');
+            const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+            const ano = data.getFullYear();
+            const hora = data.getHours().toString().padStart(2, '0');
+            const minutos = data.getMinutes().toString().padStart(2, '0');
+            
+            return `${dia}/${mes}/${ano} ${hora}:${minutos}`;
+        }
+        
+        function validarEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        function mostrarMensagem(texto, tipo) {
+            const div = document.getElementById('mensagem-duvida');
+            div.textContent = texto;
+            div.className = `alert alert-${tipo}`;
+            div.style.display = 'block';
+            
+            setTimeout(() => {
+                div.style.display = 'none';
+            }, 5000);
+        }
+        
+        // ========== FUNÇÃO PARA ENVIAR DÚVIDA ==========
+        function enviarDuvida() {
+            const nome = document.getElementById('duvida-nome').value.trim();
+            const email = document.getElementById('duvida-email').value.trim();
+            const whatsapp = document.getElementById('duvida-whatsapp').value.trim();
+            const cidade = document.getElementById('duvida-cidade').value.trim();
+            const area = document.getElementById('duvida-area').value;
+            const resumo = document.getElementById('duvida-resumo').value.trim();
+            const descricao = document.getElementById('duvida-descricao').value.trim();
+            
+            if (!nome || !whatsapp || !cidade || !area || !resumo || !descricao) {
+                mostrarMensagem('Por favor, preencha todos os campos obrigatórios.', 'danger');
+                return;
+            }
+            
+            if (resumo.length > 200) {
+                mostrarMensagem('O resumo deve ter no máximo 200 caracteres.', 'danger');
+                return;
+            }
+            
+            if (email && !validarEmail(email)) {
+                mostrarMensagem('Por favor, insira um email válido.', 'danger');
+                return;
+            }
+            
+            const btnEnviar = document.querySelector('.btn-success');
+            const textoOriginal = btnEnviar.textContent;
+            btnEnviar.textContent = '📤 Enviando...';
+            btnEnviar.disabled = true;
+            
+            const duvida = {
+                nome_autor: nome,
+                email_autor: email || '',
+                whatsapp_autor: whatsapp,
+                cidade_autor: cidade,
+                area: area,
+                resumo: resumo,
+                descricao: descricao
+            };
+            
+            try {
+                const id = DB.addDuvida(duvida);
+                
+                enviarParaGoogleSheets({
+                    acao: 'nova_duvida',
+                    ...duvida
+                }).catch(erro => {
+                    console.log('Google Sheets offline, continuando localmente');
+                });
+                
+                mostrarMensagem(`✅ Dúvida enviada com sucesso! ID: ${id}`, 'success');
+                limparFormularioDuvida();
+                
+                setTimeout(() => carregarDuvidas(), 500);
+                
+            } catch (erro) {
+                mostrarMensagem('❌ Erro ao salvar dúvida: ' + erro.message, 'danger');
+            } finally {
+                btnEnviar.textContent = textoOriginal;
+                btnEnviar.disabled = false;
+            }
+        }
+        
+        // ========== FUNÇÃO PARA ENVIAR RESPOSTA ==========
+        function enviarResposta(duvidaId) {
+            const whatsapp = document.getElementById(`resposta-whatsapp-${duvidaId}`).value.trim();
+            const respostaTexto = document.getElementById(`resposta-texto-${duvidaId}`).value.trim();
+            
+            if (!whatsapp || !respostaTexto) {
+                alert('Por favor, preencha seu WhatsApp e a resposta.');
+                return;
+            }
+            
+            const btn = document.querySelector(`#btn-resposta-${duvidaId}`);
+            const textoOriginal = btn.textContent;
+            btn.textContent = '📤 Enviando...';
+            btn.disabled = true;
+            
+            const resposta = {
+                whatsapp_respondente: whatsapp,
+                conteudo_resposta: respostaTexto
+            };
+            
+            try {
+                DB.addResposta(duvidaId, resposta);
+                
+                enviarParaGoogleSheets({
+                    acao: 'nova_resposta',
+                    id_duvida: duvidaId,
+                    ...resposta
+                }).catch(erro => {
+                    console.log('Google Sheets offline, continuando localmente');
+                });
+                
+                document.getElementById(`resposta-whatsapp-${duvidaId}`).value = '';
+                document.getElementById(`resposta-texto-${duvidaId}`).value = '';
+                
+                carregarDuvidas();
+                
+                alert('✅ Resposta enviada com sucesso!');
+                
+            } catch (erro) {
+                alert('❌ Erro ao enviar resposta: ' + erro.message);
+            } finally {
+                btn.textContent = textoOriginal;
+                btn.disabled = false;
+            }
+        }
+        
+        // ========== FUNÇÃO PARA CARREGAR DÚVIDAS ==========
+        function carregarDuvidas() {
+            const container = document.getElementById('lista-duvidas');
+            container.innerHTML = `
+                <div class="spinner"></div>
+                <p>Carregando dúvidas...</p>
+            `;
+            
+            buscarDoGoogleSheets()
+                .then(dados => {
+                    if (dados && dados.duvidas) {
+                        exibirDuvidas(dados.duvidas, dados.respostas);
+                    } else {
+                        const duvidas = DB.getDuvidas();
+                        const respostas = DB.getRespostas();
+                        exibirDuvidas(duvidas, respostas);
+                    }
+                })
+                .catch(erro => {
+                    console.log('Google Sheets offline, usando dados locais');
+                    const duvidas = DB.getDuvidas();
+                    const respostas = DB.getRespostas();
+                    exibirDuvidas(duvidas, respostas);
+                });
+        }
+        
+        // ========== FUNÇÃO PARA EXIBIR DÚVIDAS ==========
+        function exibirDuvidas(duvidas, respostas) {
+            const container = document.getElementById('lista-duvidas');
+            
+            if (!duvidas || duvidas.length === 0) {
+                container.innerHTML = `
+                    <div class="alert alert-info">
+                        📭 Nenhuma dúvida cadastrada ainda. Seja o primeiro a compartilhar!
+                    </div>
+                `;
+                return;
+            }
+            
+            duvidas.sort((a, b) => new Date(b.data_envio) - new Date(a.data_envio));
+            
+            let html = '';
+            
+            duvidas.forEach(duvida => {
+                const respostasDuvida = respostas ? 
+                    respostas.filter(r => r.id_duvida === duvida.id) : [];
+                
+                html += `
+                    <div class="duvida-item" id="duvida-${duvida.id}">
+                        <div class="duvida-header">
+                            <div>
+                                <div class="duvida-resumo">${duvida.resumo || 'Sem título'}</div>
+                                <div class="duvida-info">
+                                    <span>Por: ${duvida.nome_autor || 'Anônimo'}</span>
+                                    <span>${duvida.cidade_autor || ''}</span>
+                                    <span>${formatarData(duvida.data_envio)}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="duvida-area">${duvida.area || 'Geral'}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="duvida-descricao">
+                            ${duvida.descricao || 'Sem descrição'}
+                        </div>
+                        
+                        ${duvida.email_autor || duvida.whatsapp_autor ? `
+                            <div class="duvida-info" style="margin-top: 10px;">
+                                ${duvida.email_autor ? `<span>📧 ${duvida.email_autor}</span>` : ''}
+                                ${duvida.whatsapp_autor ? `<span>📞 ${duvida.whatsapp_autor}</span>` : ''}
+                            </div>
+                        ` : ''}
+                        
+                        <div style="margin-top: 20px;">
+                            <h4 style="margin: 15px 0 10px 0; font-size: 14px; color: #2F5496;">
+                                💬 Respostas (${respostasDuvida.length})
+                            </h4>
+                            
+                            ${respostasDuvida.length > 0 ? respostasDuvida.map(resposta => `
+                                <div class="resposta-item">
+                                    <div class="resposta-header">
+                                        <span>${resposta.whatsapp_respondente ? `📞 ${resposta.whatsapp_respondente}` : 'Usuário'}</span>
+                                        <span>${formatarData(resposta.data_resposta)}</span>
+                                    </div>
+                                    <div class="resposta-conteudo">
+                                        ${resposta.conteudo_resposta || ''}
+                                    </div>
+                                </div>
+                            `).join('') : `
+                                <div class="alert alert-info" style="margin: 10px 0; padding: 10px; font-size: 12px;">
+                                    Nenhuma resposta ainda. Seja o primeiro a ajudar!
+                                </div>
+                            `}
+                        </div>
+                        
+                        <div class="form-resposta">
+                            <div class="form-group">
+                                <label>Seu WhatsApp (para identificação) *</label>
+                                <input type="text" id="resposta-whatsapp-${duvida.id}" 
+                                       class="telefone-input" placeholder="(11) 99999-9999" 
+                                       oninput="formatarTelefone(this)" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Sua Resposta *</label>
+                                <textarea id="resposta-texto-${duvida.id}" rows="3" 
+                                          placeholder="Digite sua resposta aqui..." required></textarea>
+                            </div>
+                            <button id="btn-resposta-${duvida.id}" class="btn btn-info btn-small" 
+                                    onclick="enviarResposta('${duvida.id}')">
+                                📤 Enviar Resposta
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // ========== FUNÇÃO PARA ENVIAR AO GOOGLE SHEETS ==========
+        function enviarParaGoogleSheets(dados) {
+            return new Promise((resolve, reject) => {
+                const url = "https://script.google.com/macros/s/AKfycbw-FO44zKYaTM074Zjb-e-t8Qv1RvLiygIvKyqFFuC2iypLLkZx4k6qGGqNY2n8_UgclA/exec";
+                
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dados)
+                })
+                .then(response => {
+                    console.log('✅ Dados enviados para Sheets');
+                    resolve({success: true});
+                })
+                .catch(erro => {
+                    console.warn('⚠️ Não foi possível salvar no Sheets:', erro);
+                    reject(erro);
+                });
+            });
+        }
+        
+        // ========== FUNÇÃO PARA BUSCAR DO GOOGLE SHEETS ==========
+        function buscarDoGoogleSheets() {
+            return new Promise((resolve, reject) => {
+                const url = "https://script.google.com/macros/s/AKfycbw-FO44zKYaTM074Zjb-e-t8Qv1RvLiygIvKyqFFuC2iypLLkZx4k6qGGqNY2n8_UgclA/exec";
+                
+                fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('✅ Dados carregados do Sheets:', data);
+                    resolve(data);
+                })
+                .catch(erro => {
+                    console.warn('⚠️ Não foi possível carregar do Sheets:', erro);
+                    reject(erro);
+                });
+            });
+        }
+        
+        // ========== FUNÇÕES AUXILIARES ==========
+        function limparFormularioDuvida() {
+            document.getElementById('duvida-nome').value = '';
+            document.getElementById('duvida-email').value = '';
+            document.getElementById('duvida-whatsapp').value = '';
+            document.getElementById('duvida-cidade').value = '';
+            document.getElementById('duvida-area').value = '';
+            document.getElementById('duvida-resumo').value = '';
+            document.getElementById('duvida-descricao').value = '';
+            atualizarContadorResumo();
+            mostrarMensagem('Formulário limpo com sucesso!', 'info');
+        }
+        
+        // ========== CARREGAR DÚVIDAS AO INICIAR ==========
+        window.onload = function() {
+            carregarDuvidas();
+        };
+    </script>
+</body>
+</html>

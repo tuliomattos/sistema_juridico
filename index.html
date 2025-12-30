@@ -371,116 +371,6 @@
             color: #2F5496;
         }
         
-        /* === SISTEMA DE DÚVIDAS === */
-        .lista-duvidas-item {
-            background: white;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border-left: 4px solid #2F5496;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .lista-duvidas-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-        
-        .lista-duvidas-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 8px;
-        }
-        
-        .duvida-area {
-            background: #2F5496;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-        }
-        
-        .duvida-resumo {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .duvida-info {
-            display: flex;
-            gap: 15px;
-            font-size: 12px;
-            color: #6c757d;
-        }
-        
-        .duvida-expandida {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eaeaea;
-            display: none;
-        }
-        
-        .duvida-expandida.ativa { display: block; }
-        
-        .resposta-item {
-            background: #e3f2fd;
-            padding: 15px;
-            margin: 10px 0 10px 20px;
-            border-radius: 8px;
-            border-left: 3px solid #2F5496;
-        }
-        
-        .form-resposta {
-            margin-top: 15px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-        
-        .filtro-duvidas {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .filtro-botoes {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-        
-        .filtro-btn {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-        
-        .filtro-btn.ativo { background: #2F5496; }
-        .filtro-btn:hover { background: #5a6268; }
-        
-        .btn-excluir-duvida {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        
-        .btn-excluir-duvida:hover { background: #c82333; }
-        
         /* === UTILITÁRIOS === */
         .alert {
             padding: 12px 15px;
@@ -1114,24 +1004,6 @@
             padding: 10px;
         }
         
-        /* === BOTÃO VER RESPOSTAS === */
-        .btn-ver-respostas {
-            background: #17a2b8;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-            margin-left: 10px;
-            transition: all 0.3s;
-        }
-        
-        .btn-ver-respostas:hover {
-            background: #138496;
-            transform: translateY(-1px);
-        }
-        
         /* === CONTATOS RESPOSTA === */
         .contato-resposta {
             display: grid;
@@ -1242,7 +1114,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE SENHA -->
+    <!-- MODAL DE SENHA (para acessar página de dúvidas) -->
     <div id="modalSenha" class="modal-senha">
         <div class="modal-conteudo">
             <h2 class="modal-titulo">🔒 Acesso Restrito</h2>
@@ -1347,6 +1219,7 @@
                         <button class="btn" onclick="showTab('backups')">💾 Backups</button>
                         <button class="btn btn-info" onclick="showTab('teses')">📚 Cadastro de Teses</button>
                         <button class="btn btn-warning" onclick="executarAutoReparo()">🛠️ Sistema de Auto-Reparo</button>
+                        <!-- ALTERADO: Botão agora abre modal de senha que redireciona para duvidas.html -->
                         <button class="btn btn-secondary" onclick="abrirModalSenha()">❓ Dúvidas e Ajuda</button>
                     </div>
                 </div>
@@ -1597,7 +1470,6 @@
                             </div>
                             <button class="btn" onclick="consultarClientes()">🔍 Buscar Clientes</button>
                             <button class="btn" onclick="listarTodosClientes()">📄 Listar Todos</button>
-                            <!-- NOVO BOTÃO ADICIONADO AQUI -->
                             <button class="btn btn-atualizar" onclick="atualizarConsultas()">🔄 Atualizar Dados</button>
                         </div>
                         
@@ -1626,7 +1498,6 @@
                     <div class="card">
                         <h3>📊 Relatórios</h3>
                         
-                        <!-- NOVO BOTÃO ADICIONADO AQUI -->
                         <div class="btn-row" style="margin-bottom: 20px;">
                             <button class="btn btn-atualizar" onclick="atualizarRelatoriosCompleto()">🔄 Atualizar Estatísticas</button>
                         </div>
@@ -1827,135 +1698,6 @@
                     </div>
                 </div>
 
-                <!-- Dúvidas e Ajuda -->
-                <div id="duvidas" class="tab-content">
-                    <div class="card">
-                        <h3>❓ Dúvidas e Ajuda</h3>
-                        <p>Compartilhe suas dúvidas e ajude outros advogados da equipe.</p>
-                        
-                        <!-- Estatísticas das Dúvidas -->
-                        <div class="stats-grid" id="stats-duvidas" style="margin-bottom: 20px;">
-                            <div class="stat-card">
-                                <div class="stat-number" id="total-duvidas">0</div>
-                                <p>Total de Dúvidas</p>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number" id="total-respostas">0</div>
-                                <p>Total de Respostas</p>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number" id="duvidas-abertas">0</div>
-                                <p>Dúvidas Abertas</p>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number" id="duvidas-resolvidas">0</div>
-                                <p>Resolvidas</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <h4>➕ Nova Dúvida</h4>
-                            <div class="form-group">
-                                <label>Seu Nome *</label>
-                                <input type="text" id="duvida-nome" placeholder="Digite seu nome" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Seu Email *</label>
-                                <input type="email" id="duvida-email" placeholder="seu@email.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Seu WhatsApp *</label>
-                                <input type="text" id="duvida-whatsapp" placeholder="(11) 99999-9999" oninput="formatarTelefone(this)" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Sua Cidade/Estado *</label>
-                                <input type="text" id="duvida-cidade" placeholder="Digite sua cidade e estado" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Dúvida na área de *</label>
-                                    <select id="duvida-area" required>
-                                    <option value="">Selecione a área</option>
-                                    <option value="Trabalhista">Trabalhista</option>
-                                    <option value="Cível">Cível</option>
-                                    <option value="Previdenciário">Previdenciário</option>
-                                    <option value="Criminal">Criminal</option>
-                                    <option value="Consumidor">Consumidor</option>
-                                    <option value="Família">Família</option>
-                                    <option value="Contratos">Contratos</option>
-                                    <option value="Tecnologia">Tecnologia e Direito Digital</option>
-                                    <option value="Outras">Outras</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Resumo da Dúvida (máx. 200 caracteres) *</label>
-                                <textarea id="duvida-resumo" rows="2" placeholder="Digite um resumo breve da sua dúvida (máximo 200 caracteres)" maxlength="200" oninput="atualizarContadorResumo()" required></textarea>
-                                <small id="contador-resumo">0/200 caracteres</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Descrição Completa da Dúvida *</label>
-                                <textarea id="duvida-descricao" rows="6" placeholder="Descreva sua dúvida em detalhes. Inclua informações relevantes como:
-- Situação específica
-- Prazo envolvido
-- Valor discutido
-- Documentos disponíveis
-- O que já tentou resolver" required></textarea>
-                            </div>
-                            <div class="btn-row">
-                                <button class="btn btn-success" onclick="enviarDuvida()" id="btn-enviar-duvida">📤 Enviar Dúvida</button>
-                                <button class="btn" onclick="limparFormularioDuvida()">🗑️ Limpar Formulário</button>
-                                <div class="botoes-direita">
-                                    <button class="btn btn-atualizar" onclick="carregarDuvidasDoServidor()">🔄 Buscar Atualizações</button>
-                                    <button class="btn" onclick="showTab('dashboard')">↩️ Voltar ao Dashboard</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Busca Avançada -->
-                        <div class="search-box">
-                            <h4>🔍 Busca Avançada</h4>
-                            <div class="form-group">
-                                <input type="text" id="busca-duvidas" placeholder="Buscar por palavra-chave, autor, ou área..." onkeypress="if(event.key === 'Enter') buscarDuvidas()">
-                            </div>
-                            <div class="btn-row">
-                                <button class="btn" onclick="buscarDuvidas()">🔍 Buscar</button>
-                                <button class="btn" onclick="limparBuscaDuvidas()">🗑️ Limpar Busca</button>
-                                <button class="btn btn-info" onclick="exportarDuvidasParaTXT()">📥 Exportar Dúvidas</button>
-                            </div>
-                        </div>
-
-                        <!-- Filtro de Dúvidas -->
-                        <div class="filtro-duvidas">
-                            <h4>📊 Filtrar Dúvidas</h4>
-                            <div class="filtro-botoes">
-                                <button class="filtro-btn ativo" onclick="filtrarDuvidas('todas')">Todas</button>
-                                <button class="filtro-btn" onclick="filtrarDuvidas('Trabalhista')">Trabalhista</button>
-                                <button class="filtro-btn" onclick="filtrarDuvidas('Cível')">Cível</button>
-                                <button class="filtro-btn" onclick="filtrarDuvidas('Previdenciário')">Previdenciário</button>
-                                <button class="filtro-btn" onclick="filtrarDuvidas('Criminal')">Criminal</button>
-                                <button class="filtro-btn" onclick="filtrarDuvidas('Consumidor')">Consumidor</button>
-                                <button class="filtro-btn" onclick="filtrarDuvidas('Família')">Família</button>
-                                <button class="filtro-btn" onclick="filtrarDuvidas('Contratos')">Contratos</button>
-                                <button class="filtro-btn" onclick="filtrarDuvidas('Tecnologia')">Tecnologia</button>
-                                <button class="filtro-btn" onclick="filtrarDuvidas('Outras')">Outras</button>
-                                <button class="filtro-btn btn-success" onclick="filtrarDuvidas('abertas')">🔓 Abertas</button>
-                                <button class="filtro-btn btn-warning" onclick="filtrarDuvidas('resolvidas')">✅ Resolvidas</button>
-                            </div>
-                        </div>
-                        
-                        <div id="loading-duvidas" class="alert alert-info" style="display: none;">
-                            <div class="spinner" style="width: 20px; height: 20px; display: inline-block; margin-right: 10px;"></div>
-                            Carregando dúvidas do servidor...
-                        </div>
-                        
-                        <div id="lista-duvidas"></div>
-                        
-                        <div class="btn-row" style="margin-top: 20px;">
-                            <button class="btn btn-atualizar" onclick="carregarMaisDuvidas()">📄 Carregar Mais Dúvidas</button>
-                            <button class="btn" onclick="rolarParaTopo()">⬆️ Voltar ao Topo</button>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             <!-- ÁREA DE PROPAGANDAS -->
@@ -1982,34 +1724,25 @@
     <script>
         // ========== CONFIGURAÇÃO DA SENHA ==========
         const SENHA_CORRETA = "usuarioadv1010";
-        let senhaDigitada = false;
 
         // ========== CONFIGURAÇÃO DO REGISTRO ==========
         const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzwW8iVM4-h5TbMaD2vOY-vimqVV0G7OBiJ699_Qp3bPK9ta523vCGYMPKPq05PbNY/exec";
         const EMAIL_ADMIN = "tuliomattos@email.com";
 
-        // ========== CONFIGURAÇÃO DAS DÚVIDAS (GOOGLE SHEETS) ==========
-        const GOOGLE_SHEETS_DUVIDAS = "https://script.google.com/macros/s/AKfycbxX4qgHvWv-SHc3TJQnmn_IZPQh6_rvCROAqw91EVy1XjBSgI2chwM3T4QRs6W8qJN2/exec";
-        const PROXY_CORS_URL = "https://corsproxy.io/?"; // Proxy CORS melhorado
-        
         // ========== SISTEMA DE BANCO DE DADOS ==========
         const DB = {
             clientes: JSON.parse(localStorage.getItem('sistema_juridico_clientes')) || [],
             processos: JSON.parse(localStorage.getItem('sistema_juridico_processos')) || [],
             andamentos: JSON.parse(localStorage.getItem('sistema_juridico_andamentos')) || [],
             teses: JSON.parse(localStorage.getItem('sistema_juridico_teses')) || { inicial: {}, impugnacao: {}, recurso: {} },
-            duvidas: JSON.parse(localStorage.getItem('sistema_juridico_duvidas')) || [],
             usuarioRegistrado: localStorage.getItem('sistema_juridico_usuario_registrado') === 'true',
-            cacheDuvidas: JSON.parse(localStorage.getItem('sistema_juridico_cache_duvidas')) || { data: null, duvidas: [], respostas: [] },
             
             salvar: function() {
                 localStorage.setItem('sistema_juridico_clientes', JSON.stringify(this.clientes));
                 localStorage.setItem('sistema_juridico_processos', JSON.stringify(this.processos));
                 localStorage.setItem('sistema_juridico_andamentos', JSON.stringify(this.andamentos));
                 localStorage.setItem('sistema_juridico_teses', JSON.stringify(this.teses));
-                localStorage.setItem('sistema_juridico_duvidas', JSON.stringify(this.duvidas));
                 localStorage.setItem('sistema_juridico_usuario_registrado', this.usuarioRegistrado);
-                localStorage.setItem('sistema_juridico_cache_duvidas', JSON.stringify(this.cacheDuvidas));
                 this.atualizarInterface();
             },
             
@@ -2023,9 +1756,6 @@
                 }
                 if (document.getElementById('andamento')?.classList.contains('active')) {
                     atualizarListaProcessosAtualizados();
-                }
-                if (document.getElementById('duvidas')?.classList.contains('active')) {
-                    atualizarEstatisticasDuvidas();
                 }
                 if (document.getElementById('teses')?.classList.contains('active')) {
                     carregarTeses();
@@ -2057,6 +1787,7 @@
         function atualizarConsultas() {
             document.getElementById('consulta-cliente').value = '';
             document.getElementById('consulta-processo').value = '';
+            
             document.getElementById('resultados-consulta-clientes').innerHTML = '';
             document.getElementById('resultados-consulta-processos').innerHTML = '';
             
@@ -2079,7 +1810,9 @@
         
         function atualizarRelatoriosCompleto() {
             atualizarRelatorios();
+            
             document.getElementById('relatorio-conteudo').innerHTML = '';
+            
             document.getElementById('relatorio-cliente-especifico').value = '';
             
             const mensagem = document.createElement('div');
@@ -2185,10 +1918,6 @@
             const ano = hoje.getFullYear();
             
             return `${dia}/${mes}/${ano}`;
-        }
-
-        function getDataHoraAtualISO() {
-            return new Date().toISOString();
         }
 
         // ========== FUNÇÕES DE BUSCA POR CÓDIGO ==========
@@ -2491,15 +2220,8 @@ Primeiro Acesso: ${new Date().toLocaleString()}
             const mensagemErro = document.getElementById('mensagemErro');
             
             if (senha === SENHA_CORRETA) {
-                senhaDigitada = true;
-                fecharModalSenha();
-                
-                document.querySelectorAll('.tab-content').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-                document.getElementById('duvidas').classList.add('active');
-                
-                carregarDuvidasDoServidor();
+                // Redireciona para a página de dúvidas
+                window.location.href = 'duvidas.html';
             } else {
                 mensagemErro.innerHTML = `❌ Senha não cadastrada. Entre em contato com o administrador:<br><strong>Túlio Mattos (16) 99176-7468</strong>`;
                 mensagemErro.style.display = 'block';
@@ -2522,19 +2244,6 @@ Primeiro Acesso: ${new Date().toLocaleString()}
                 propagandaContainer.style.display = 'block';
             } else {
                 propagandaContainer.style.display = 'none';
-            }
-            
-            if (tabName === 'duvidas') {
-                if (senhaDigitada) {
-                    document.querySelectorAll('.tab-content').forEach(tab => {
-                        tab.classList.remove('active');
-                    });
-                    document.getElementById(tabName).classList.add('active');
-                    carregarDuvidasDoServidor();
-                } else {
-                    abrirModalSenha();
-                }
-                return;
             }
             
             document.querySelectorAll('.tab-content').forEach(tab => {
@@ -2570,7 +2279,6 @@ Primeiro Acesso: ${new Date().toLocaleString()}
                 'consultar-teses': () => {
                     document.getElementById('tese-exibicao').style.display = 'none';
                 },
-                'duvidas': () => carregarDuvidasDoServidor(),
                 'consultas': () => {
                     document.getElementById('consulta-cliente').value = '';
                     document.getElementById('consulta-processo').value = '';
@@ -3991,559 +3699,6 @@ Data Registro: ${andamento.dataRegistro}
             janelaImpressao.document.close();
         }
 
-        // ========== NOVO SISTEMA DE DÚVIDAS COM GOOGLE SHEETS ==========
-        let duvidasCarregadas = [];
-        let respostasCarregadas = [];
-        let paginaAtual = 1;
-        const itensPorPagina = 10;
-        let filtroAtual = 'todas';
-        let termoBuscaAtual = '';
-
-        function atualizarEstatisticasDuvidas() {
-            const totalDuvidas = duvidasCarregadas.length;
-            const totalRespostas = respostasCarregadas.length;
-            const duvidasAbertas = duvidasCarregadas.filter(d => d.status !== 'RESOLVIDA').length;
-            const duvidasResolvidas = duvidasCarregadas.filter(d => d.status === 'RESOLVIDA').length;
-            
-            document.getElementById('total-duvidas').textContent = totalDuvidas;
-            document.getElementById('total-respostas').textContent = totalRespostas;
-            document.getElementById('duvidas-abertas').textContent = duvidasAbertas;
-            document.getElementById('duvidas-resolvidas').textContent = duvidasResolvidas;
-        }
-
-        function carregarDuvidasDoServidor() {
-            const loading = document.getElementById('loading-duvidas');
-            loading.style.display = 'block';
-            
-            // Usar proxy CORS para evitar bloqueios
-            const urlComProxy = `${PROXY_CORS_URL}${encodeURIComponent(GOOGLE_SHEETS_DUVIDAS)}?acao=buscar_duvidas&timestamp=${Date.now()}`;
-            
-            fetch(urlComProxy)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Erro HTTP: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data && data.success) {
-                        duvidasCarregadas = data.duvidas || [];
-                        respostasCarregadas = data.respostas || [];
-                        
-                        DB.cacheDuvidas = {
-                            data: new Date().toISOString(),
-                            duvidas: duvidasCarregadas,
-                            respostas: respostasCarregadas
-                        };
-                        DB.salvar();
-                        
-                        exibirDuvidasCarregadas();
-                        atualizarEstatisticasDuvidas();
-                        mostrarFeedback('✅ Dúvidas atualizadas com sucesso!', 'success');
-                    } else {
-                        throw new Error('Resposta inválida do servidor');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao carregar dúvidas:', error);
-                    carregarDuvidasDoCache();
-                    mostrarFeedback('⚠️ Usando cache local. Verifique sua conexão.', 'warning');
-                })
-                .finally(() => {
-                    loading.style.display = 'none';
-                });
-        }
-
-        function carregarDuvidasDoCache() {
-            if (DB.cacheDuvidas && DB.cacheDuvidas.duvidas.length > 0) {
-                duvidasCarregadas = DB.cacheDuvidas.duvidas;
-                respostasCarregadas = DB.cacheDuvidas.respostas;
-                exibirDuvidasCarregadas();
-                atualizarEstatisticasDuvidas();
-            } else {
-                document.getElementById('lista-duvidas').innerHTML = 
-                    '<div class="alert alert-danger">❌ Não foi possível carregar as dúvidas. Verifique sua conexão.</div>';
-            }
-        }
-
-        function exibirDuvidasCarregadas() {
-            let duvidasFiltradas = filtrarDuvidasLocal(filtroAtual, duvidasCarregadas);
-            
-            if (termoBuscaAtual) {
-                duvidasFiltradas = duvidasFiltradas.filter(duvida => {
-                    const busca = termoBuscaAtual.toLowerCase();
-                    return (
-                        duvida.resumo.toLowerCase().includes(busca) ||
-                        duvida.descricao.toLowerCase().includes(busca) ||
-                        duvida.nome_autor.toLowerCase().includes(busca) ||
-                        duvida.area.toLowerCase().includes(busca)
-                    );
-                });
-            }
-            
-            duvidasFiltradas.sort((a, b) => {
-                return new Date(b.data_envio) - new Date(a.data_envio);
-            });
-            
-            const inicio = (paginaAtual - 1) * itensPorPagina;
-            const fim = inicio + itensPorPagina;
-            const duvidasParaExibir = duvidasFiltradas.slice(inicio, fim);
-            
-            exibirDuvidasNaLista(duvidasParaExibir);
-            
-            document.getElementById('lista-duvidas').dataset.total = duvidasFiltradas.length;
-            document.getElementById('lista-duvidas').dataset.pagina = paginaAtual;
-        }
-
-        function filtrarDuvidasLocal(filtro, duvidas) {
-            if (filtro === 'todas') return duvidas;
-            if (filtro === 'abertas') return duvidas.filter(d => d.status !== 'RESOLVIDA');
-            if (filtro === 'resolvidas') return duvidas.filter(d => d.status === 'RESOLVIDA');
-            return duvidas.filter(d => d.area === filtro);
-        }
-
-        function exibirDuvidasNaLista(duvidas) {
-            const container = document.getElementById('lista-duvidas');
-            
-            if (duvidas.length === 0) {
-                container.innerHTML = '<div class="alert alert-info">Nenhuma dúvida encontrada.</div>';
-                return;
-            }
-            
-            let html = '';
-            
-            duvidas.forEach((duvida, index) => {
-                const respostasDuvida = respostasCarregadas.filter(r => r.id_duvida === duvida.id);
-                const temRespostas = respostasDuvida.length > 0;
-                const statusClass = duvida.status === 'RESOLVIDA' ? 'btn-success' : 'btn-warning';
-                const statusText = duvida.status === 'RESOLVIDA' ? '✅ Resolvida' : '🔓 Aberta';
-                
-                html += `
-                    <div class="lista-duvidas-item" onclick="toggleDuvidaGoogle('${duvida.id}', event)">
-                        <div class="lista-duvidas-header">
-                            <div>
-                                <div class="duvida-resumo">${duvida.resumo}</div>
-                                <div class="duvida-info">
-                                    <span>Por: ${duvida.nome_autor} (${duvida.cidade_autor})</span>
-                                    <span>${formatarDataISOparaBR(duvida.data_envio)}</span>
-                                    ${temRespostas ? `<span>💬 ${respostasDuvida.length} resposta(s)</span>` : ''}
-                                </div>
-                                <div class="duvida-info" style="margin-top: 5px;">
-                                    <span>📧 ${duvida.email_autor || 'Não informado'}</span>
-                                    <span>📞 ${duvida.whatsapp_autor || 'Não informado'}</span>
-                                    <span class="duvida-area">${duvida.area}</span>
-                                    <button class="btn-small ${statusClass}" style="margin-left: 10px;">${statusText}</button>
-                                </div>
-                            </div>
-                            <div>
-                                ${temRespostas ? `<button class="btn-ver-respostas" onclick="verRespostasDuvidaGoogle('${duvida.id}', event)">👁️ Ver Respostas</button>` : ''}
-                            </div>
-                        </div>
-                        <div class="duvida-expandida" id="duvida-expandida-${duvida.id}">
-                            <div><strong>Descrição completa:</strong> ${duvida.descricao || 'Sem descrição detalhada'}</div>
-                            
-                            ${respostasDuvida.length > 0 ? `
-                                <div style="margin-top: 15px;">
-                                    <h5>📝 Respostas (${respostasDuvida.length})</h5>
-                                    ${respostasDuvida.map((resposta, respIndex) => `
-                                        <div class="resposta-item">
-                                            <div><strong>${resposta.nome_respondente || 'Anônimo'}</strong> - ${formatarDataISOparaBR(resposta.data_resposta)}</div>
-                                            <div>${resposta.conteudo_resposta}</div>
-                                            ${resposta.email_respondente || resposta.whatsapp_respondente ? `
-                                                <div style="font-size: 12px; margin-top: 5px;">
-                                                    ${resposta.email_respondente ? `📧 ${resposta.email_respondente}` : ''}
-                                                    ${resposta.whatsapp_respondente ? ` | 📞 ${resposta.whatsapp_respondente}` : ''}
-                                                </div>
-                                            ` : ''}
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
-                            
-                            <div class="form-resposta">
-                                <h5>💡 Responder a esta dúvida</h5>
-                                <div class="contato-resposta">
-                                    <div class="form-group">
-                                        <label>Seu Nome *</label>
-                                        <input type="text" id="resposta-nome-${duvida.id}" placeholder="Seu nome" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Seu Email (opcional)</label>
-                                        <input type="email" id="resposta-email-${duvida.id}" placeholder="seu@email.com">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Seu WhatsApp (opcional)</label>
-                                        <input type="text" id="resposta-whatsapp-${duvida.id}" placeholder="(11) 99999-9999" oninput="formatarTelefone(this)">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Sua Resposta *</label>
-                                    <textarea id="resposta-${duvida.id}" rows="4" placeholder="Digite sua resposta aqui..." required></textarea>
-                                </div>
-                                <div class="btn-row">
-                                    <button class="btn btn-success" onclick="enviarRespostaGoogle('${duvida.id}')">📤 Enviar Resposta</button>
-                                    <button class="btn" onclick="marcarComoResolvida('${duvida.id}')">✅ Marcar como Resolvida</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function toggleDuvidaGoogle(id, event) {
-            if (event.target.tagName === 'BUTTON' || event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-                return;
-            }
-            
-            const expandida = document.getElementById(`duvida-expandida-${id}`);
-            expandida.classList.toggle('ativa');
-            
-            if (expandida.classList.contains('ativa')) {
-                setTimeout(() => {
-                    const textarea = document.getElementById(`resposta-${id}`);
-                    if (textarea) textarea.focus();
-                }, 100);
-            }
-        }
-
-        function verRespostasDuvidaGoogle(id, event) {
-            event.stopPropagation();
-            
-            const duvida = duvidasCarregadas.find(d => d.id === id);
-            const respostas = respostasCarregadas.filter(r => r.id_duvida === id);
-            
-            if (!duvida) return;
-            
-            let conteudo = `DÚVIDA: ${duvida.resumo}
-AUTOR: ${duvida.nome_autor} (${duvida.cidade_autor})
-EMAIL: ${duvida.email_autor || 'Não informado'}
-WHATSAPP: ${duvida.whatsapp_autor || 'Não informado'}
-DATA: ${formatarDataISOparaBR(duvida.data_envio)}
-ÁREA: ${duvida.area}
-STATUS: ${duvida.status}
-
-DESCRIÇÃO:
-${duvida.descricao || 'Sem descrição detalhada'}
-
-==============================
-RESPOSTAS (${respostas.length})
-==============================
-
-`;
-            
-            if (respostas.length === 0) {
-                conteudo += 'Nenhuma resposta ainda. Seja o primeiro a responder!\n';
-            } else {
-                respostas.forEach((resposta, index) => {
-                    conteudo += `RESPOSTA ${index + 1}:
-Autor: ${resposta.nome_respondente || 'Anônimo'}
-Data: ${formatarDataISOparaBR(resposta.data_resposta)}
-`;
-                    if (resposta.email_respondente || resposta.whatsapp_respondente) {
-                        conteudo += `Contato: ${resposta.email_respondente || ''} ${resposta.whatsapp_respondente ? (resposta.email_respondente ? '| ' : '') + resposta.whatsapp_respondente : ''}\n`;
-                    }
-                    conteudo += `Resposta: ${resposta.conteudo_resposta}\n\n`;
-                });
-            }
-            
-            abrirModalDetalhes(`Respostas - ${duvida.resumo}`, conteudo);
-        }
-
-        function enviarDuvida() {
-            const nome = document.getElementById('duvida-nome').value.trim();
-            const email = document.getElementById('duvida-email').value.trim();
-            const whatsapp = document.getElementById('duvida-whatsapp').value.trim();
-            const cidade = document.getElementById('duvida-cidade').value.trim();
-            const area = document.getElementById('duvida-area').value;
-            const resumo = document.getElementById('duvida-resumo').value.trim();
-            const descricao = document.getElementById('duvida-descricao').value.trim();
-            
-            if (!nome || !email || !whatsapp || !cidade || !area || !resumo || !descricao) {
-                alert('Por favor, preencha todos os campos obrigatórios');
-                return;
-            }
-            
-            if (resumo.length > 200) {
-                alert('O resumo deve ter no máximo 200 caracteres');
-                return;
-            }
-            
-            if (!validarEmail(email)) {
-                alert('Por favor, insira um email válido');
-                return;
-            }
-            
-            document.getElementById('btn-enviar-duvida').disabled = true;
-            document.getElementById('btn-enviar-duvida').innerHTML = '⏳ Enviando...';
-            
-            const dados = {
-                acao: 'nova_duvida',
-                nome_autor: nome,
-                email_autor: email,
-                whatsapp_autor: whatsapp,
-                cidade_autor: cidade,
-                area: area,
-                resumo: resumo,
-                descricao: descricao,
-                data_envio: getDataHoraAtualISO(),
-                status: 'ABERTA'
-            };
-            
-            // Usar proxy CORS para envio
-            const urlComProxy = `${PROXY_CORS_URL}${encodeURIComponent(GOOGLE_SHEETS_DUVIDAS)}`;
-            
-            fetch(urlComProxy, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(dados)
-            })
-            .then(response => response.text())
-            .then(() => {
-                alert('✅ Dúvida enviada com sucesso! Em breve estará disponível para todos.');
-                limparFormularioDuvida();
-                
-                setTimeout(() => {
-                    carregarDuvidasDoServidor();
-                }, 2000);
-            })
-            .catch(error => {
-                console.error('Erro ao enviar dúvida:', error);
-                alert('⚠️ Não foi possível enviar a dúvida agora. Tente novamente mais tarde.');
-            })
-            .finally(() => {
-                document.getElementById('btn-enviar-duvida').disabled = false;
-                document.getElementById('btn-enviar-duvida').innerHTML = '📤 Enviar Dúvida';
-            });
-        }
-
-        function limparFormularioDuvida() {
-            document.getElementById('duvida-nome').value = '';
-            document.getElementById('duvida-email').value = '';
-            document.getElementById('duvida-whatsapp').value = '';
-            document.getElementById('duvida-cidade').value = '';
-            document.getElementById('duvida-area').value = '';
-            document.getElementById('duvida-resumo').value = '';
-            document.getElementById('duvida-descricao').value = '';
-            document.getElementById('contador-resumo').textContent = '0/200 caracteres';
-        }
-
-        function enviarRespostaGoogle(idDuvida) {
-            const nome = document.getElementById(`resposta-nome-${idDuvida}`).value.trim();
-            const email = document.getElementById(`resposta-email-${idDuvida}`).value.trim();
-            const whatsapp = document.getElementById(`resposta-whatsapp-${idDuvida}`).value.trim();
-            const conteudo = document.getElementById(`resposta-${idDuvida}`).value.trim();
-            
-            if (!nome || !conteudo) {
-                alert('Por favor, preencha seu nome e a resposta');
-                return;
-            }
-            
-            if (email && !validarEmail(email)) {
-                alert('Por favor, insira um email válido');
-                return;
-            }
-            
-            const dados = {
-                acao: 'nova_resposta',
-                id_duvida: idDuvida,
-                nome_respondente: nome,
-                email_respondente: email || '',
-                whatsapp_respondente: whatsapp || '',
-                conteudo_resposta: conteudo,
-                data_resposta: getDataHoraAtualISO()
-            };
-            
-            // Usar proxy CORS para envio
-            const urlComProxy = `${PROXY_CORS_URL}${encodeURIComponent(GOOGLE_SHEETS_DUVIDAS)}`;
-            
-            fetch(urlComProxy, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(dados)
-            })
-            .then(response => response.text())
-            .then(() => {
-                alert('✅ Resposta enviada com sucesso!');
-                
-                document.getElementById(`resposta-nome-${idDuvida}`).value = '';
-                document.getElementById(`resposta-email-${idDuvida}`).value = '';
-                document.getElementById(`resposta-whatsapp-${idDuvida}`).value = '';
-                document.getElementById(`resposta-${idDuvida}`).value = '';
-                
-                setTimeout(() => {
-                    carregarDuvidasDoServidor();
-                }, 2000);
-            })
-            .catch(error => {
-                console.error('Erro ao enviar resposta:', error);
-                alert('⚠️ Não foi possível enviar a resposta agora. Tente novamente mais tarde.');
-            });
-        }
-
-        function marcarComoResolvida(idDuvida) {
-            if (!confirm('Deseja marcar esta dúvida como resolvida?')) return;
-            
-            const dados = {
-                acao: 'marcar_resolvida',
-                id_duvida: idDuvida
-            };
-            
-            // Usar proxy CORS para envio
-            const urlComProxy = `${PROXY_CORS_URL}${encodeURIComponent(GOOGLE_SHEETS_DUVIDAS)}`;
-            
-            fetch(urlComProxy, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(dados)
-            })
-            .then(response => response.text())
-            .then(() => {
-                alert('✅ Dúvida marcada como resolvida!');
-                
-                setTimeout(() => {
-                    carregarDuvidasDoServidor();
-                }, 2000);
-            })
-            .catch(error => {
-                console.error('Erro ao marcar como resolvida:', error);
-                alert('⚠️ Não foi possível atualizar o status. Tente novamente mais tarde.');
-            });
-        }
-
-        function buscarDuvidas() {
-            termoBuscaAtual = document.getElementById('busca-duvidas').value.trim();
-            paginaAtual = 1;
-            exibirDuvidasCarregadas();
-        }
-
-        function limparBuscaDuvidas() {
-            termoBuscaAtual = '';
-            document.getElementById('busca-duvidas').value = '';
-            paginaAtual = 1;
-            exibirDuvidasCarregadas();
-        }
-
-        function filtrarDuvidas(filtro) {
-            filtroAtual = filtro;
-            paginaAtual = 1;
-            
-            document.querySelectorAll('.filtro-btn').forEach(btn => {
-                btn.classList.remove('ativo');
-                btn.classList.remove('btn-success');
-                btn.classList.remove('btn-warning');
-            });
-            
-            event.target.classList.add('ativo');
-            if (filtro === 'abertas') event.target.classList.add('btn-success');
-            if (filtro === 'resolvidas') event.target.classList.add('btn-warning');
-            
-            exibirDuvidasCarregadas();
-        }
-
-        function carregarMaisDuvidas() {
-            const totalDuvidas = parseInt(document.getElementById('lista-duvidas').dataset.total || 0);
-            const totalPaginas = Math.ceil(totalDuvidas / itensPorPagina);
-            
-            if (paginaAtual < totalPaginas) {
-                paginaAtual++;
-                exibirDuvidasCarregadas();
-                
-                const mensagem = document.createElement('div');
-                mensagem.className = 'alert alert-info';
-                mensagem.innerHTML = `📄 Carregando página ${paginaAtual} de ${totalPaginas}...`;
-                mensagem.id = 'mensagem-carregando';
-                
-                document.getElementById('lista-duvidas').appendChild(mensagem);
-                
-                setTimeout(() => {
-                    if (document.getElementById('mensagem-carregando')) {
-                        document.getElementById('mensagem-carregando').remove();
-                    }
-                }, 1500);
-            } else {
-                alert('Você já está na última página!');
-            }
-        }
-
-        function rolarParaTopo() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function atualizarContadorResumo() {
-            const resumo = document.getElementById('duvida-resumo');
-            const contador = document.getElementById('contador-resumo');
-            contador.textContent = `${resumo.value.length}/200 caracteres`;
-        }
-
-        function exportarDuvidasParaTXT() {
-            if (duvidasCarregadas.length === 0) {
-                alert('Não há dúvidas para exportar');
-                return;
-            }
-            
-            let conteudo = `RELATÓRIO DE DÚVIDAS - SISTEMA JURÍDICO
-Data: ${getDataAtualBR()}
-Total de dúvidas: ${duvidasCarregadas.length}
-Total de respostas: ${respostasCarregadas.length}
-
-==============================
-
-`;
-            
-            duvidasCarregadas.forEach((duvida, index) => {
-                const respostas = respostasCarregadas.filter(r => r.id_duvida === duvida.id);
-                
-                conteudo += `DÚVIDA ${index + 1}:
-ID: ${duvida.id}
-RESUMO: ${duvida.resumo}
-AUTOR: ${duvida.nome_autor} (${duvida.cidade_autor})
-EMAIL: ${duvida.email_autor || 'Não informado'}
-WHATSAPP: ${duvida.whatsapp_autor || 'Não informado'}
-ÁREA: ${duvida.area}
-STATUS: ${duvida.status}
-DATA: ${formatarDataISOparaBR(duvida.data_envio)}
-DESCRIÇÃO: ${duvida.descricao || 'Sem descrição detalhada'}
-
-RESPOSTAS (${respostas.length}):
-`;
-                
-                if (respostas.length === 0) {
-                    conteudo += 'Nenhuma resposta.\n\n';
-                } else {
-                    respostas.forEach((resposta, respIndex) => {
-                        conteudo += `  RESPOSTA ${respIndex + 1}:
-  Autor: ${resposta.nome_respondente || 'Anônimo'}
-  Data: ${formatarDataISOparaBR(resposta.data_resposta)}
-  Contato: ${resposta.email_respondente || ''} ${resposta.whatsapp_respondente ? (resposta.email_respondente ? '| ' : '') + resposta.whatsapp_respondente : ''}
-  Resposta: ${resposta.conteudo_resposta}
-
-`;
-                    });
-                }
-                
-                conteudo += '==============================\n\n';
-            });
-            
-            const blob = new Blob([conteudo], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `duvidas-juridicas-${getDataAtualBR().replace(/\//g, '-')}.txt`;
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            alert('Relatório de dúvidas exportado com sucesso!');
-        }
-
         // ========== FUNÇÕES DE BACKUP ==========
         function exportBackupClientes() {
             const backup = {
@@ -4726,10 +3881,6 @@ RESPOSTAS (${respostas.length}):
                 if (!DB.teses.inicial) DB.teses.inicial = {};
                 if (!DB.teses.impugnacao) DB.teses.impugnacao = {};
                 if (!DB.teses.recurso) DB.teses.recurso = {};
-                
-                DB.duvidas = DB.duvidas.filter(duvida => 
-                    duvida && duvida.id && duvida.resumo
-                );
                 
                 DB.salvar();
                 alert(`Sistema verificado e reparado com sucesso! ${reparos} reparos realizados.`);
