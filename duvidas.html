@@ -503,8 +503,8 @@
         <div class="header">
             <h1>👥 Comunidade Jurídica</h1>
             <p>Compartilhe dúvidas e ajude outros advogados</p>
-            <button class="btn-back" onclick="window.location.href='dashboard.html'">
-                ← Voltar ao Dashboard
+            <button class="btn-back" onclick="window.location.href='index.html'">
+                ← Voltar ao Sistema
             </button>
         </div>
         
@@ -525,7 +525,7 @@
                 <div class="form-group">
                     <label>Seu WhatsApp *</label>
                     <input type="text" id="duvida-whatsapp" placeholder="(11) 99999-9999" 
-                           class="telefone-input" oninput="formatarTelefone(this)" required>
+                           class="telefone-input" required>
                 </div>
                 
                 <div class="form-group">
@@ -546,7 +546,7 @@
                     <label>Resumo da Dúvida (máx. 200 caracteres) *</label>
                     <textarea id="duvida-resumo" rows="2" 
                               placeholder="Digite um resumo breve da sua dúvida (máximo 200 caracteres)" 
-                              maxlength="200" oninput="atualizarContadorResumo()" required></textarea>
+                              maxlength="200" required></textarea>
                     <div class="contador" id="contador-resumo">0/200 caracteres</div>
                 </div>
                 
@@ -672,6 +672,100 @@
             }, 5000);
         }
         
+        // ========== FUNÇÃO PARA ENVIAR AO GOOGLE SHEETS ==========
+        function enviarParaGoogleSheets(dados) {
+            return new Promise((resolve, reject) => {
+                // URL DO SEU GOOGLE APPS SCRIPT
+                const url = "https://script.google.com/macros/s/AKfycbwD1iwg2uzwrRjpWiGFWilw5-cCEbWryz6SF6EsNBW_8ZSBdwxZZ7NSXVVCd8FC_O4MqA/exec";
+                
+                // Converter dados para URL encoded
+                const params = new URLSearchParams();
+                
+                // Adicionar ação e todos os campos
+                params.append('acao', dados.acao || 'nova_duvida');
+                
+                for (const key in dados) {
+                    if (key !== 'acao' && dados[key] !== undefined && dados[key] !== null) {
+                        params.append(key, String(dados[key]));
+                    }
+                }
+                
+                console.log('Enviando para Google Sheets:', Object.fromEntries(params));
+                
+                // Fazer a requisição
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    },
+                    body: params.toString(),
+                    mode: 'cors',
+                    credentials: 'omit'
+                })
+                .then(response => response.text())
+                .then(text => {
+                    console.log('Resposta do Google Sheets:', text);
+                    
+                    try {
+                        const data = JSON.parse(text);
+                        resolve(data);
+                    } catch (error) {
+                        if (text.includes('success') || text.includes('true')) {
+                            resolve({ 
+                                success: true, 
+                                message: 'Enviado com sucesso',
+                                raw: text 
+                            });
+                        } else {
+                            resolve({ 
+                                success: false, 
+                                error: 'Resposta inválida',
+                                raw: text 
+                            });
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro na requisição:', error);
+                    reject(error);
+                });
+            });
+        }
+        
+        // ========== FUNÇÃO PARA BUSCAR DO GOOGLE SHEETS ==========
+        function buscarDoGoogleSheets() {
+            return new Promise((resolve, reject) => {
+                const url = "https://script.google.com/macros/s/AKfycbwD1iwg2uzwrRjpWiGFWilw5-cCEbWryz6SF6EsNBW_8ZSBdwxZZ7NSXVVCd8FC_O4MqA/exec?acao=get_all";
+                
+                fetch(url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'omit'
+                })
+                .then(response => response.text())
+                .then(text => {
+                    try {
+                        const data = JSON.parse(text);
+                        resolve(data);
+                    } catch (error) {
+                        resolve({
+                            success: false,
+                            duvidas: DB.getDuvidas(),
+                            respostas: DB.getRespostas()
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.log('Erro ao buscar do Google Sheets:', error);
+                    resolve({
+                        success: false,
+                        duvidas: DB.getDuvidas(),
+                        respostas: DB.getRespostas()
+                    });
+                });
+            });
+        }
+        
         // ========== FUNÇÃO PARA ENVIAR DÚVIDA ==========
         function enviarDuvida() {
             const nome = document.getElementById('duvida-nome').value.trim();
@@ -702,6 +796,7 @@
             btnEnviar.disabled = true;
             
             const duvida = {
+                acao: 'nova_duvida',
                 nome_autor: nome,
                 email_autor: email || '',
                 whatsapp_autor: whatsapp,
@@ -710,40 +805,38 @@
                 descricao: descricao
             };
             
-            try {
-                const id = DB.addDuvida(duvida);
-                
-                enviarParaGoogleSheets({
-                    acao: 'nova_duvida',
-                    ...duvida
-                }).then(resultado => {
-                    console.log('Resposta do servidor:', resultado);
+            // Primeiro tenta enviar para Google Sheets
+            enviarParaGoogleSheets(duvida)
+                .then(resultado => {
+                    console.log('Resultado do Google Sheets:', resultado);
+                    
                     if (resultado && resultado.success) {
-                        mostrarMensagem(`✅ Dúvida enviada com sucesso! ID: ${resultado.id || id}`, 'success');
+                        const id = resultado.id || DB.addDuvida(duvida);
+                        mostrarMensagem(`✅ Dúvida enviada com sucesso! ID: ${id}`, 'success');
+                        
+                        document.getElementById('duvida-nome').value = '';
+                        document.getElementById('duvida-email').value = '';
+                        document.getElementById('duvida-whatsapp').value = '';
+                        document.getElementById('duvida-area').value = '';
+                        document.getElementById('duvida-resumo').value = '';
+                        document.getElementById('duvida-descricao').value = '';
+                        atualizarContadorResumo();
+                        
+                        setTimeout(() => carregarDuvidas(), 1000);
                     } else {
+                        const id = DB.addDuvida(duvida);
                         mostrarMensagem(`⚠️ Dúvida salva localmente! ID: ${id}`, 'info');
                     }
-                }).catch(erro => {
-                    console.log('Servidor offline:', erro);
+                })
+                .catch(erro => {
+                    console.error('Erro ao enviar:', erro);
+                    const id = DB.addDuvida(duvida);
                     mostrarMensagem(`⚠️ Dúvida salva localmente! ID: ${id}`, 'info');
+                })
+                .finally(() => {
+                    btnEnviar.textContent = textoOriginal;
+                    btnEnviar.disabled = false;
                 });
-                
-                document.getElementById('duvida-nome').value = '';
-                document.getElementById('duvida-email').value = '';
-                document.getElementById('duvida-whatsapp').value = '';
-                document.getElementById('duvida-area').value = '';
-                document.getElementById('duvida-resumo').value = '';
-                document.getElementById('duvida-descricao').value = '';
-                atualizarContadorResumo();
-                
-                setTimeout(() => carregarDuvidas(), 1000);
-                
-            } catch (erro) {
-                mostrarMensagem('❌ Erro ao salvar dúvida: ' + erro.message, 'danger');
-            } finally {
-                btnEnviar.textContent = textoOriginal;
-                btnEnviar.disabled = false;
-            }
         }
         
         // ========== FUNÇÃO PARA ENVIAR RESPOSTA ==========
@@ -767,40 +860,38 @@
             btn.disabled = true;
             
             const resposta = {
+                acao: 'nova_resposta',
+                id_duvida: duvidaId,
                 email_respondente: email,
                 conteudo_resposta: respostaTexto
             };
             
-            try {
-                DB.addResposta(duvidaId, resposta);
-                
-                enviarParaGoogleSheets({
-                    acao: 'nova_resposta',
-                    id_duvida: duvidaId,
-                    ...resposta
-                }).then(resultado => {
-                    console.log('Resposta enviada:', resultado);
+            enviarParaGoogleSheets(resposta)
+                .then(resultado => {
+                    console.log('Resultado da resposta:', resultado);
+                    
                     if (resultado && resultado.success) {
+                        DB.addResposta(duvidaId, resposta);
                         mostrarMensagem('✅ Resposta enviada com sucesso!', 'success');
+                        
+                        document.getElementById(`resposta-email-${duvidaId}`).value = '';
+                        document.getElementById(`resposta-texto-${duvidaId}`).value = '';
+                        
+                        setTimeout(() => carregarDuvidas(), 500);
                     } else {
+                        DB.addResposta(duvidaId, resposta);
                         mostrarMensagem('⚠️ Resposta salva localmente!', 'info');
                     }
-                }).catch(erro => {
-                    console.log('Servidor offline:', erro);
+                })
+                .catch(erro => {
+                    console.error('Erro ao enviar resposta:', erro);
+                    DB.addResposta(duvidaId, resposta);
                     mostrarMensagem('⚠️ Resposta salva localmente!', 'info');
+                })
+                .finally(() => {
+                    btn.textContent = textoOriginal;
+                    btn.disabled = false;
                 });
-                
-                document.getElementById(`resposta-email-${duvidaId}`).value = '';
-                document.getElementById(`resposta-texto-${duvidaId}`).value = '';
-                
-                setTimeout(() => carregarDuvidas(), 500);
-                
-            } catch (erro) {
-                mostrarMensagem('❌ Erro ao enviar resposta: ' + erro.message, 'danger');
-            } finally {
-                btn.textContent = textoOriginal;
-                btn.disabled = false;
-            }
         }
         
         // ========== FUNÇÃO PARA CARREGAR DÚVIDAS ==========
@@ -813,8 +904,13 @@
             
             buscarDoGoogleSheets()
                 .then(dados => {
-                    if (dados && dados.success && dados.duvidas) {
-                        exibirDuvidas(dados.duvidas, dados.respostas || []);
+                    if (dados && dados.success) {
+                        exibirDuvidas(dados.duvidas || [], dados.respostas || []);
+                        
+                        if (dados.duvidas && dados.duvidas.length > 0) {
+                            DB.duvidas = dados.duvidas;
+                            DB.salvar();
+                        }
                     } else {
                         const duvidas = DB.getDuvidas();
                         const respostas = DB.getRespostas();
@@ -822,7 +918,7 @@
                     }
                 })
                 .catch(erro => {
-                    console.log('Servidor offline, usando dados locais:', erro);
+                    console.log('Erro ao carregar dúvidas:', erro);
                     const duvidas = DB.getDuvidas();
                     const respostas = DB.getRespostas();
                     exibirDuvidas(duvidas, respostas);
@@ -971,50 +1067,25 @@
             }
         }
         
-        // ========== FUNÇÃO PARA ENVIAR AO GOOGLE SHEETS ==========
-        function enviarParaGoogleSheets(dados) {
-            return new Promise((resolve, reject) => {
-                const url = "https://script.google.com/macros/s/AKfycbwD1iwg2uzwrRjpWiGFWilw5-cCEbWryz6SF6EsNBW_8ZSBdwxZZ7NSXVVCd8FC_O4MqA/exec";
-                
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(dados)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('✅ Resposta do servidor:', data);
-                    resolve(data);
-                })
-                .catch(erro => {
-                    console.warn('⚠️ Erro ao enviar:', erro);
-                    reject(erro);
-                });
-            });
-        }
-        
-        // ========== FUNÇÃO PARA BUSCAR DO GOOGLE SHEETS ==========
-        function buscarDoGoogleSheets() {
-            return new Promise((resolve, reject) => {
-                const url = "https://comunidade-juridica.onrender.com/api/sheets";
-                
-                fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('✅ Dados do servidor:', data);
-                    resolve(data);
-                })
-                .catch(erro => {
-                    console.warn('⚠️ Erro ao carregar:', erro);
-                    reject(erro);
-                });
-            });
-        }
-        
-        // ========== CARREGAR DÚVIDAS AO INICIAR ==========
+        // ========== INICIALIZAÇÃO ==========
         window.onload = function() {
+            // Configurar formatação de telefone
+            const telefoneInput = document.getElementById('duvida-whatsapp');
+            if (telefoneInput) {
+                telefoneInput.addEventListener('input', function() {
+                    formatarTelefone(this);
+                });
+            }
+            
+            // Configurar contador de resumo
+            const resumoInput = document.getElementById('duvida-resumo');
+            if (resumoInput) {
+                resumoInput.addEventListener('input', function() {
+                    atualizarContadorResumo();
+                });
+            }
+            
+            // Carregar dúvidas
             carregarDuvidas();
         };
     </script>
