@@ -9,9 +9,19 @@
         /* === ESTILOS GLOBAIS === */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        body {
+        html, body {
+            min-height: 100% !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3a8a, #2F5496);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e3a8a, #2F5496) fixed;
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
             color: #333;
             min-height: 100vh;
             padding: 20px;
@@ -23,6 +33,7 @@
             gap: 20px;
             max-width: 1400px;
             margin: 0 auto;
+            background: transparent !important;
         }
         
         @media (max-width: 1024px) {
@@ -34,7 +45,10 @@
             }
         }
         
-        .container { max-width: 100%; }
+        .container { 
+            max-width: 100%;
+            background: transparent !important;
+        }
         
         /* === COMPONENTES DE LAYOUT === */
         .header {
@@ -50,12 +64,13 @@
         .header h1, .header p { color: white; }
         
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 12px;
             padding: 25px;
             margin: 15px 0;
             box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             border: 1px solid #eaeaea;
+            backdrop-filter: blur(10px);
         }
         
         .data-item {
@@ -1167,6 +1182,159 @@
                 padding: 12px 20px;
                 font-size: 16px;
             }
+        }
+        
+        /* === CORREÇÃO PARA DISPOSITIVOS MÓVEIS === */
+        @media (max-width: 768px) {
+            body {
+                background: linear-gradient(135deg, #1e3a8a, #2F5496) fixed !important;
+                background-attachment: fixed !important;
+                min-height: 100vh !important;
+                height: auto !important;
+                padding: 15px !important;
+            }
+            
+            .main-container {
+                background: transparent !important;
+            }
+            
+            .card {
+                background: rgba(255, 255, 255, 0.95) !important;
+                backdrop-filter: blur(10px) !important;
+                padding: 20px 15px !important;
+            }
+            
+            .header {
+                background: rgba(255, 255, 255, 0.2) !important;
+                backdrop-filter: blur(10px) !important;
+                padding: 20px 15px !important;
+            }
+            
+            #dashboard .card:last-child {
+                background: rgba(255, 255, 255, 0.95) !important;
+                backdrop-filter: blur(10px) !important;
+            }
+            
+            .modal-container {
+                background: rgba(255, 255, 255, 0.98) !important;
+            }
+            
+            .btn {
+                padding: 12px 15px !important;
+                font-size: 14px !important;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 10px !important;
+            }
+            
+            .processos-grid {
+                justify-content: center !important;
+                gap: 8px !important;
+            }
+            
+            .processo-card {
+                min-width: 100px !important;
+                padding: 10px 5px !important;
+            }
+            
+            .btn-row {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+            
+            .form-container {
+                gap: 15px !important;
+            }
+            
+            .form-left, .form-right {
+                padding: 15px !important;
+            }
+        }
+        
+        /* === CORREÇÃO PARA TELAS MUITO PEQUENAS === */
+        @media (max-width: 375px) {
+            body {
+                padding: 10px !important;
+            }
+            
+            .card {
+                padding: 15px 10px !important;
+            }
+            
+            .header {
+                padding: 15px 10px !important;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem !important;
+            }
+            
+            .btn {
+                padding: 10px 12px !important;
+                font-size: 13px !important;
+            }
+            
+            .stat-number {
+                font-size: 20px !important;
+            }
+            
+            .processo-number {
+                font-size: 14px !important;
+            }
+        }
+        
+        /* === GARANTIR QUE OS ELEMENTOS FILHOS NÃO HERDEM FUNDO === */
+        .main-container, .container, .card, .header, .data-item,
+        .search-box, .form-left, .form-right, .cadastro-item {
+            background: transparent !important;
+        }
+        
+        /* === CORREÇÃO ESPECÍFICA PARA CARDS === */
+        .card {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        /* === CORREÇÃO ESPECÍFICA PARA BOTÕES === */
+        .btn {
+            background: #2F5496 !important;
+            color: white !important;
+        }
+        
+        .btn:hover {
+            background: #1e3a8a !important;
+        }
+        
+        .btn-danger { background: #dc3545 !important; }
+        .btn-success { background: #28a745 !important; }
+        .btn-warning { background: #ffc107 !important; color: #000 !important; }
+        .btn-info { background: #17a2b8 !important; }
+        .btn-secondary { background: #6c757d !important; }
+        
+        /* === CORREÇÃO PARA FUNDO DOS FORMULÁRIOS === */
+        .form-left {
+            background: rgba(248, 249, 250, 0.9) !important;
+        }
+        
+        .form-right {
+            background: rgba(227, 242, 253, 0.9) !important;
+        }
+        
+        /* === CORREÇÃO PARA MODAIS === */
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.85) !important;
+        }
+        
+        .modal-container {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(20px) !important;
+        }
+        
+        /* === ANIMAÇÃO SUAVE PARA TRANSFORMAÇÕES === */
+        .card, .btn, .data-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
     </style>
 </head>
