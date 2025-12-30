@@ -406,11 +406,16 @@
         
         /* === RODAPÉ === */
         .footer {
-            text-align: center;
             padding: 20px;
             color: white;
             margin-top: 30px;
             font-size: 14px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
         
         /* === CÓDIGO GERADO === */
@@ -1004,6 +1009,24 @@
             padding: 10px;
         }
         
+        /* === BOTÃO VER RESPOSTAS === */
+        .btn-ver-respostas {
+            background: #17a2b8;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-ver-respostas:hover {
+            background: #138496;
+            transform: translateY(-1px);
+        }
+        
         /* === CONTATOS RESPOSTA === */
         .contato-resposta {
             display: grid;
@@ -1016,6 +1039,88 @@
             .contato-resposta {
                 grid-template-columns: 1fr;
             }
+        }
+        
+        /* === NOVO ESTILO PARA GRUPO SECRETO === */
+        .grupo-secreto-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .qr-code-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .qr-code-title {
+            color: #2F5496;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .qr-code-image {
+            width: 250px;
+            height: 250px;
+            margin: 20px auto;
+            border: 2px solid #2F5496;
+            border-radius: 10px;
+            padding: 10px;
+            background: white;
+        }
+        
+        .whatsapp-link {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+        
+        .whatsapp-link:hover {
+            background: #1da851;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        .grupo-instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+        
+        /* === UTILITÁRIOS === */
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
         
         /* === RESPONSIVIDADE === */
@@ -1036,6 +1141,13 @@
                 padding: 15px;
                 font-size: 12px;
             }
+            .grupo-secreto-container {
+                padding: 20px 10px;
+            }
+            .qr-code-image {
+                width: 200px;
+                height: 200px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1046,6 +1158,14 @@
                 width: 35px;
                 height: 35px;
                 font-size: 18px;
+            }
+            .qr-code-image {
+                width: 180px;
+                height: 180px;
+            }
+            .whatsapp-link {
+                padding: 12px 20px;
+                font-size: 16px;
             }
         }
     </style>
@@ -1114,7 +1234,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE SENHA (para acessar página de dúvidas) -->
+    <!-- MODAL DE SENHA -->
     <div id="modalSenha" class="modal-senha">
         <div class="modal-conteudo">
             <h2 class="modal-titulo">🔒 Acesso Restrito</h2>
@@ -1186,6 +1306,53 @@
         </div>
     </div>
 
+    <!-- PÁGINA DO GRUPO SECRETO -->
+    <div id="grupoSecreto" class="tab-content">
+        <div class="card">
+            <div class="grupo-secreto-container">
+                <h2 class="qr-code-title">🔒 Grupo Secreto - Acesso Exclusivo</h2>
+                
+                <div class="qr-code-container">
+                    <h3>📱 Escaneie o QR Code para entrar no grupo</h3>
+                    
+                    <div class="qr-code-image">
+                        <!-- QR Code será carregado aqui -->
+                        <img src="https://tuliomattos.github.io/advocacia5.0/imagens/qrcod.png" 
+                             alt="QR Code do Grupo Secreto" 
+                             style="width: 100%; height: 100%; object-fit: contain;"
+                             onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://chat.whatsapp.com/DGv5JGM9mxi7guamcOiMP3'">
+                    </div>
+                    
+                    <h3>📲 OU clique no link abaixo:</h3>
+                    
+                    <a href="https://chat.whatsapp.com/DGv5JGM9mxi7guamcOiMP3" 
+                       target="_blank" 
+                       class="whatsapp-link">
+                        📱 Entrar no Grupo do WhatsApp
+                    </a>
+                    
+                    <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                        Link: https://chat.whatsapp.com/DGv5JGM9mxi7guamcOiMP3
+                    </p>
+                </div>
+                
+                <div class="grupo-instructions">
+                    <h3>ℹ️ Instruções:</h3>
+                    <ol style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                        <li>Use seu smartphone para escanear o QR Code acima</li>
+                        <li>Ou clique no link para abrir no WhatsApp</li>
+                        <li>O grupo é exclusivo para membros autorizados</li>
+                        <li>Mantenha o sigilo das informações compartilhadas</li>
+                    </ol>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="showTab('dashboard')">
+                    ↩️ Voltar ao Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- SISTEMA PRINCIPAL -->
     <div id="sistemaPrincipal" style="display: none;">
         <div class="main-container">
@@ -1219,8 +1386,7 @@
                         <button class="btn" onclick="showTab('backups')">💾 Backups</button>
                         <button class="btn btn-info" onclick="showTab('teses')">📚 Cadastro de Teses</button>
                         <button class="btn btn-warning" onclick="executarAutoReparo()">🛠️ Sistema de Auto-Reparo</button>
-                        <!-- ALTERADO: Botão agora abre modal de senha que redireciona para duvidas.html -->
-                        <button class="btn btn-secondary" onclick="abrirModalSenha()">❓ Dúvidas e Ajuda</button>
+                        <button class="btn btn-secondary" onclick="showTab('grupoSecreto')">🔒 Grupo Secreto</button>
                     </div>
                 </div>
 
@@ -1711,9 +1877,9 @@
             </div>
         </div>
 
-        <!-- RODAPÉ -->
+        <!-- RODAPÉ ATUALIZADO -->
         <div class="footer">
-            <p>2025 Túlio Mattos - Todos os direitos reservados</p>
+            <p>2026 Túlio Mattos - Todos os direitos reservados</p>
         </div>
 
         <!-- File Inputs para Importar Backup -->
@@ -1724,6 +1890,7 @@
     <script>
         // ========== CONFIGURAÇÃO DA SENHA ==========
         const SENHA_CORRETA = "usuarioadv1010";
+        let senhaDigitada = false;
 
         // ========== CONFIGURAÇÃO DO REGISTRO ==========
         const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzwW8iVM4-h5TbMaD2vOY-vimqVV0G7OBiJ699_Qp3bPK9ta523vCGYMPKPq05PbNY/exec";
@@ -2220,8 +2387,15 @@ Primeiro Acesso: ${new Date().toLocaleString()}
             const mensagemErro = document.getElementById('mensagemErro');
             
             if (senha === SENHA_CORRETA) {
-                // Redireciona para a página de dúvidas
-                window.location.href = 'duvidas.html';
+                senhaDigitada = true;
+                fecharModalSenha();
+                
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                alert('Senha correta! Redirecionando para o Grupo Secreto...');
+                showTab('grupoSecreto');
             } else {
                 mensagemErro.innerHTML = `❌ Senha não cadastrada. Entre em contato com o administrador:<br><strong>Túlio Mattos (16) 99176-7468</strong>`;
                 mensagemErro.style.display = 'block';
@@ -2287,6 +2461,16 @@ Primeiro Acesso: ${new Date().toLocaleString()}
                 },
                 'relatorios': () => {
                     atualizarRelatorios();
+                },
+                'grupoSecreto': () => {
+                    if (!senhaDigitada) {
+                        abrirModalSenha();
+                        setTimeout(() => {
+                            if (!senhaDigitada) {
+                                showTab('dashboard');
+                            }
+                        }, 100);
+                    }
                 }
             };
             
@@ -3435,19 +3619,6 @@ Data Registro: ${andamento.dataRegistro}
             DB.salvar();
             
             alert(`Tese "${select.value}" salva com sucesso!`);
-        }
-
-        function editarTese(tipo) {
-            const select = document.getElementById(`tese-${tipo}`);
-            const textarea = document.getElementById(`conteudo-tese-${tipo}`);
-            
-            if (!select.value) {
-                alert('Selecione uma tese para editar');
-                return;
-            }
-            
-            textarea.value = DB.teses[tipo][select.value] || '';
-            textarea.focus();
         }
 
         // ========== FUNÇÕES PARA MODAL DE TESE ==========
