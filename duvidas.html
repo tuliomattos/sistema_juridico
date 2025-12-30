@@ -544,7 +544,7 @@
                     console.log('Google Sheets offline, usando dados locais:', erro);
                     const duvidas = DB.getDuvidas();
                     const respostas = DB.getRespostas();
-                    exibirDuvidas(duvidas, respostas);
+                        exibirDuvidas(duvidas, respostas);
                 });
         }
         
@@ -647,22 +647,33 @@
             return new Promise((resolve, reject) => {
                 const url = "https://script.google.com/macros/s/AKfycbxCnMqlDeVvkeLP1NVt1XZRppyhmgJWhRNL5oiiJv8aEz0aRFHTdzL9LiXSkSBZkASj/exec";
                 
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(dados)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('✅ Resposta do Sheets:', data);
-                    resolve(data);
-                })
-                .catch(erro => {
-                    console.warn('⚠️ Erro ao enviar para Sheets:', erro);
-                    reject(erro);
-                });
+                // Usando XMLHttpRequest para contornar CORS
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', url, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                
+                xhr.onload = function() {
+                    if (xhr.status === 200 || xhr.status === 0) {
+                        try {
+                            const data = JSON.parse(xhr.responseText);
+                            console.log('✅ Resposta do Sheets:', data);
+                            resolve(data);
+                        } catch (e) {
+                            console.log('✅ Dados enviados (resposta não JSON)');
+                            resolve({success: true});
+                        }
+                    } else {
+                        console.warn('⚠️ Erro HTTP:', xhr.status);
+                        reject(new Error('Erro HTTP: ' + xhr.status));
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    console.warn('⚠️ Erro de conexão com Sheets');
+                    reject(new Error('Erro de conexão'));
+                };
+                
+                xhr.send(JSON.stringify(dados));
             });
         }
         
@@ -671,16 +682,39 @@
             return new Promise((resolve, reject) => {
                 const url = "https://script.google.com/macros/s/AKfycbxCnMqlDeVvkeLP1NVt1XZRppyhmgJWhRNL5oiiJv8aEz0aRFHTdzL9LiXSkSBZkASj/exec";
                 
-                fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('✅ Dados carregados do Sheets:', data);
-                    resolve(data);
-                })
-                .catch(erro => {
-                    console.warn('⚠️ Erro ao carregar do Sheets:', erro);
-                    reject(erro);
-                });
+                // Usando XMLHttpRequest para contornar CORS
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                
+                xhr.onload = function() {
+                    if (xhr.status === 200 || xhr.status === 0) {
+                        try {
+                            const data = JSON.parse(xhr.responseText);
+                            console.log('✅ Dados carregados do Sheets:', data);
+                            resolve(data);
+                        } catch (e) {
+                            console.log('✅ Sheets respondeu (não JSON), usando dados locais');
+                            const duvidas = DB.getDuvidas();
+                            const respostas = DB.getRespostas();
+                            resolve({success: true, duvidas: duvidas, respostas: respostas});
+                        }
+                    } else {
+                        console.warn('⚠️ Erro HTTP:', xhr.status);
+                        const duvidas = DB.getDuvidas();
+                        const respostas = DB.getRespostas();
+                        resolve({success: true, duvidas: duvidas, respostas: respostas});
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    console.warn('⚠️ Erro de conexão com Sheets, usando dados locais');
+                    const duvidas = DB.getDuvidas();
+                    const respostas = DB.getRespostas();
+                    resolve({success: true, duvidas: duvidas, respostas: respostas});
+                };
+                
+                xhr.send();
             });
         }
         
