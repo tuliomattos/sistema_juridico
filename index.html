@@ -2042,6 +2042,31 @@
                         <!-- Propagandas serão carregadas aqui -->
                     </div>
                 </div>
+                
+                <!-- NOVO QUADRO ADICIONADO AQUI -->
+                <div class="propaganda-card" style="margin-top: 20px;">
+                    <h3 class="propaganda-title">🎬 Tutorial do Sistema</h3>
+                    <div class="propaganda-content">
+                        <p style="margin-bottom: 15px; font-size: 14px;">
+                            Aprenda a usar todas as funcionalidades do sistema de cadastro jurídico.
+                        </p>
+                        <div class="tutorial-thumbnail" style="margin-bottom: 15px;">
+                            <img src="https://img.youtube.com/vi/_DZevF1-Q10/maxresdefault.jpg" 
+                                 alt="Tutorial do Sistema"
+                                 style="width: 100%; border-radius: 8px; cursor: pointer;"
+                                 onclick="abrirVideoTutorial()">
+                        </div>
+                        <a href="https://youtu.be/_DZevF1-Q10" target="_blank" style="text-decoration: none;">
+                            <button class="btn-curso" style="background: linear-gradient(135deg, #FF0000, #CC0000);">
+                                ▶️ Assistir Tutorial no YouTube
+                            </button>
+                        </a>
+                        <p style="margin-top: 10px; font-size: 12px; color: #666;">
+                            Clique na imagem ou no botão para assistir
+                        </p>
+                    </div>
+                </div>
+                <!-- FIM DO NOVO QUADRO -->
             </div>
         </div>
 
@@ -2162,6 +2187,17 @@
                     mensagem.remove();
                 }
             }, 3000);
+        }
+
+        // ========== FUNÇÃO PARA ABRIR VÍDEO TUTORIAL ==========
+        function abrirVideoTutorial() {
+            const videoUrl = "https://youtu.be/_DZevF1-Q10";
+            
+            // Abre em uma nova aba
+            window.open(videoUrl, '_blank', 'noopener,noreferrer');
+            
+            // Opcional: Mostrar confirmação
+            mostrarFeedback('🎬 Abrindo tutorial do sistema...', 'success');
         }
 
         // ========== FUNÇÕES DE FORMATAÇÃO ==========
@@ -2655,6 +2691,7 @@ Primeiro Acesso: ${new Date().toLocaleString()}
 
         // ========== FUNÇÃO PARA ATUALIZAR PROPAGANDAS ==========
         function atualizarPropagandas() {
+            // Isso atualiza apenas o primeiro quadro (do curso)
             document.getElementById('propaganda-conteudo').innerHTML = `
                 <h4 style="color: #2F5496; margin-bottom: 10px;">🎓 Curso Advocacia 5.0</h4>
                 <p style="margin-bottom: 15px; font-size: 14px;">Transforme sua advocacia com técnicas modernas e eficientes.</p>
